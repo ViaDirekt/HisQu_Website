@@ -262,6 +262,10 @@ const steps: Step[] = [
         display: grid;
         place-items: center;
         pointer-events: none;
+
+        /* moved here so BOTH .step and .popover inherit them */
+        --horizontal-stretch: 0.15;
+        --stretch-factor: calc(1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
     }
 
     .node > .step {
@@ -308,11 +312,17 @@ const steps: Step[] = [
         font-size: .8rem;
         color: var(--muted);
     }
-
     .popover {
         position: absolute;
-        transform: rotate(var(--angle)) translate(var(--radius)) rotate(calc(-1 * var(--angle)));
-        translate: 0 86%;
+
+        /* same polar coordinates as the step */
+        left: calc(50% + cos(var(--angle)) * var(--radius) * var(--stretch-factor));
+        top:  calc(44% + sin(var(--angle)) * var(--radius) * var(--stretch-factor));
+
+        /* push it straight down under the card */
+        --popup-offset: 78px; /* tweak as needed to clear the card’s height */
+        transform: translate(-50%, var(--popup-offset));
+
         min-width: 220px;
         max-width: 280px;
         background: #0f1016;
@@ -326,7 +336,10 @@ const steps: Step[] = [
         z-index: 3;
     }
 
-    .node:has(> .step:hover) .popover, .node.open .popover {
+    .node:has(> .step:hover) .popover,
+    .node:has(> .popover:hover) .popover,
+    .node:has(.popover:focus-within) .popover,
+    .node.open .popover {
         opacity: 1;
         pointer-events: auto;
     }
