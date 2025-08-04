@@ -1,0 +1,527 @@
+# .github/workflows/sync-to-existing-repos.yml (in your TEMPLATE repository)
+name: Sync Settings to Existing Repos
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repos:
+        description: 'Comma-separated list of target repos (owner/repo,owner/repo)'
+        required: true
+      template_repo:
+        description: 'Template repository (owner/repo)'
+        required: true
+        default: 'HisQu/template-repository' # <-- Your template repo default
+      prune_labels:
+        description: 'Remove labels in target repos that are NOT in the template? (true/false)'
+        required: true
+        default: 'false'
+        type: boolean
+      force_update_issue_templates:
+        description: 'Overwrite existing issue templates in target repos? (true/false)'
+        required: true
+        default: 'false'
+        type: boolean
+
+jobs:
+  sync-settings:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the template repo code to get access to issue template files
+      - name: Checkout Template Repo Code
+        uses: actions/checkout@v4
+
+      - name: Sync Labels and Issue Templates
+        uses: actions/github-script@v7
+        env:
+          # Use the PAT stored as a secret
+          SYNC_PAT: ${{ secrets.ORG_SYNC_PAT }} # <-- Make sure this matches your secret name
+          TEMPLATE_REPO_PATH: ${{ github.workspace }} # Path where template code is checked out
+        with:
+          # Use the PAT for API calls
+          github-token: ${{ env.SYNC_PAT }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { Buffer } = require('buffer'); // Needed for Base64 encoding
+
+            // --- Inputs ---
+            const templateRepoInput = "${{ github.event.inputs.template_repo }}";
+            const targetReposInput = "${{ github.event.inputs.target_repos }}";
+            const pruneLabels = ${{ github.event.inputs.prune_labels }};
+            const forceUpdateIssueTemplates = ${{ github.event.inputs.force_update_issue_templates }};
+            const templateDir = process.env.TEMPLATE_REPO_PATH;
+
+            // --- Configuration ---
+            const issueTemplateSourceDir = path.join(templateDir, '.github', 'ISSUE_TEMPLATE');
+            const issueTemplateTargetDir = '.github/ISSUE_TEMPLATE';
+            const workflowSourceDir = path.join(templateDir, '.github', 'workflows');
+            const workflowTargetDir = '.github/workflows';
+
+            // --- Helper Functions ---
+            async function getLabels(owner, repo) {
+              core.info(`Workspaceing labels from ${owner}/${repo}...`);
+              try {
+                const labels = await github.paginate(github.rest.issues.listLabelsForRepo, { owner, repo });
+                core.info(`Found ${labels.length} labels in ${owner}/${repo}.`);
+                return labels;
+              } catch (error) {
+                core.error(`Error fetching labels from ${owner}/${repo}: ${error.message}`);
+                return null;
+              }
+            }
+
+            async function createLabelIfNotExists(targetOwner, targetRepo, targetLabelNamesLower, templateLabel) {
+              if (!targetLabelNamesLower.has(templateLabel.name.toLowerCase())) {
+                core.info(`Creating label "${templateLabel.name}" in ${targetOwner}/${targetRepo}`);
+                try {
+                  await github.rest.issues.createLabel({
+                    owner: targetOwner,
+                    repo: targetRepo,
+                    name: templateLabel.name,
+                    color: templateLabel.color,
+                    description: templateLabel.description || '',
+                  });
+                  return true;
+                } catch (error) {
+                  core.error(`Failed to create label "${templateLabel.name}" in ${targetOwner}/${targetRepo}: ${error.message}`);
+                  return false;
+                }
+              } else {
+                 core.info(`Label "${templateLabel.name}" already exists in ${targetOwner}/${targetRepo}.`);
+                 return false;
+              }
+            }
+
+            // Function to delete a label
+            async function deleteLabel(targetOwner, targetRepo, labelName) {
+               core.info(`Deleting label "${labelName}" from ${targetOwner}/${targetRepo}`);
+               try {
+                 await github.rest.issues.deleteLabel({
+                   owner: targetOwner,
+                   repo: targetRepo,
+                   name: labelName,
+                 });
+                 return true;
+               } catch (error) {
+                 core.error(`Failed to delete label "${labelName}" from ${targetOwner}/${targetRepo}: ${error.message}`);
+                 return false;
+               }
+            }
+
+            async function syncFile(targetOwner, targetRepo, sourceFilePath, targetDir) {
+              const fileName = path.basename(sourceFilePath);
+              const targetPath = `${targetDir}/${fileName}`; // Use forward slashes for API path
+              
+              // Log-Ausgabe mit Backticks (`) für korrekte Variableneinbettung
+              core.info(`Syncing file ${fileName} to ${targetOwner}/${targetRepo} at ${targetPath}`);
+
+              let targetFileSha = null;
+              try {
+                core.info(`Checking for existing file at ${targetPath}...`);
+                const { data: existingFile } = await github.rest.repos.getContent({
+                  owner: targetOwner,
+                  repo: targetRepo,
+                  path: targetPath,
+                });
+                targetFileSha = existingFile.sha;
+                core.info(`Found existing file ${fileName} with SHA: ${targetFileSha}`);
+              } catch (error) {
+                if (error.status === 404) {
+                  core.info(`File ${fileName} does not exist in target.`);
+                } else {
+                  core.error(`Error checking for existing file ${targetPath} in ${targetOwner}/${targetRepo}: ${error.status} ${error.message}`);
+                  return false;
+                }
+              }
+
+              if (targetFileSha && !forceUpdateIssueTemplates) {
+                core.info(`Skipping update for existing file ${fileName} as force_update is false.`);
+                return true;
+              }
+
+              try {
+                const fileContent = fs.readFileSync(sourceFilePath, 'utf8');
+                const contentBase64 = Buffer.from(fileContent).toString('base64');
+
+                await github.rest.repos.createOrUpdateFileContents({
+                  owner: targetOwner,
+                  repo: targetRepo,
+                  path: targetPath,
+                  message: `Sync file ${fileName} from template repo`,
+                  content: contentBase64,
+                  sha: targetFileSha, 
+                });
+                core.info(`Successfully created/updated ${fileName} in ${targetOwner}/${targetRepo}`);
+                return true;
+              } catch (error) {
+                // Log-Ausgabe mit Backticks (`) für korrekte Variableneinbettung
+                core.error(`Error creating/updating file ${fileName} in ${targetOwner}/${targetRepo}: ${error.message}`);
+                return false;
+              }
+            }
+
+            async function addAllIssuesAndPullRequestsToHisQuProject(owner, repo) { // Renamed function for clarity
+              core.info(`Attempting to add all existing issues and pull requests from ${owner}/${repo} to HisQu project (Projects V2).`);
+            
+              const orgName = owner;
+              const projectTitle = "HisQu";
+            
+              let projectId;
+              try {
+                const projectResponse = await github.graphql(`
+                  query($org: String!, $projectTitle: String!) {
+                    organization(login: $org) {
+                      projectsV2(query: $projectTitle, first: 1) {
+                        nodes {
+                          id
+                          title
+                        }
+                      }
+                    }
+                  }`, { org: orgName, projectTitle });
+            
+                const projects = projectResponse.organization.projectsV2.nodes;
+                if (projects.length === 0) {
+                  core.warning(`HisQu project with title "${projectTitle}" not found in organization "${orgName}". Skipping adding items for ${owner}/${repo}.`);
+                  return;
+                }
+                projectId = projects[0].id;
+                core.info(`Found HisQu Project V2 ID: ${projectId} (Title: "${projects[0].title}")`);
+            
+              } catch (error) {
+                core.error(`Failed to fetch HisQu project (Projects V2). Error: ${error.message}`);
+                return;
+              }
+            
+              // 1. Get existing items in the project to avoid duplicates
+              let existingItems = [];
+              try {
+                const projectItemsResult = await github.graphql(`
+                  query($projectId: ID!) {
+                    node(id: $projectId) {
+                      ... on ProjectV2 {
+                        items(first: 100) { # Adjust 'first' as needed, or paginate
+                          nodes {
+                            id
+                            content {
+                              ... on Issue {
+                                id
+                                number
+                                repository {
+                                  nameWithOwner
+                                }
+                              }
+                              ... on PullRequest {
+                                id
+                                number
+                                repository {
+                                  nameWithOwner
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                `, { projectId });
+            
+                if (projectItemsResult.node && projectItemsResult.node.items && projectItemsResult.node.items.nodes) {
+                  existingItems = projectItemsResult.node.items.nodes.filter(item => item.content);
+                  core.info(`Found ${existingItems.length} existing items in HisQu project.`);
+                }
+              } catch (error) {
+                // Modify the warning message to be more specific about the likely cause.
+                core.warning(`Failed to fetch existing project items (issues/PRs) for duplicate check: ${error.message}. This indicates a GraphQL query syntax issue or continued PAT permission problems accessing content data in specific repositories. The script will continue and rely on the Project API's duplicate check.`);
+                // We still continue because the addProjectV2ItemById mutation will fail if it's a true duplicate.
+              }            
+            
+              // 2. Fetch all issues from the current target repository
+              let issues = [];
+              try {
+                issues = await github.paginate(github.rest.issues.listForRepo, {
+                  owner,
+                  repo,
+                  state: 'all',
+                  per_page: 100,
+                });
+                core.info(`Found ${issues.length} issues in ${owner}/${repo}.`);
+              } catch (error) {
+                core.error(`Failed to fetch issues for ${owner}/${repo}. Error: ${error.message}`);
+                // Do not return, continue to process PRs if issues fetch fails.
+              }
+            
+              // 3. Fetch all pull requests from the current target repository
+              let pullRequests = [];
+              try {
+                pullRequests = await github.paginate(github.rest.pulls.list, { // Use pulls.list
+                  owner,
+                  repo,
+                  state: 'all', // Get open and closed PRs
+                  per_page: 100,
+                });
+                core.info(`Found ${pullRequests.length} pull requests in ${owner}/${repo}.`);
+              } catch (error) {
+                core.error(`Failed to fetch pull requests for ${owner}/${repo}. Error: ${error.message}`);
+                // Do not return, continue processing.
+              }
+            
+              // Combine issues and pull requests into one array for unified processing
+              const allContentItems = [...issues, ...pullRequests];
+              core.info(`Total of ${allContentItems.length} issues and pull requests found in ${owner}/${repo}.`);
+            
+              let itemsAddedCount = 0;
+              for (const item of allContentItems) {
+                const alreadyAdded = existingItems.some(existingItem =>
+                  existingItem.content &&
+                  existingItem.content.number === item.number &&
+                  existingItem.content.repository &&
+                  existingItem.content.repository.nameWithOwner === `${owner}/${repo}`
+                );
+            
+                if (alreadyAdded) {
+                  core.info(`Item #${item.number} (${item.pull_request ? 'PR' : 'Issue'}) from ${owner}/${repo} already in HisQu project, skipping`);
+                  continue;
+                }
+            
+                try {
+                  await github.graphql(`
+                    mutation($projectId: ID!, $contentId: ID!) {
+                      addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) {
+                        item {
+                          id
+                        }
+                      }
+                    }`, { projectId: projectId, contentId: item.node_id });
+            
+                  core.info(`Successfully added item #${item.number} (${item.pull_request ? 'PR' : 'Issue'}) from ${owner}/${repo} to HisQu project.`);
+                  itemsAddedCount++;
+                } catch (error) {
+                  if (error.message.includes("The item is already on the project")) {
+                    core.info(`Item #${item.number} (${item.pull_request ? 'PR' : 'Issue'}) from ${owner}/${repo} is already in HisQu project, skipping.`);
+                  } else {
+                    core.warning(`Failed to add item #${item.number} (${item.pull_request ? 'PR' : 'Issue'}) from ${owner}/${repo} to project: ${error.message}`);
+                  }
+                }
+              }
+              core.info(`Finished processing items for ${owner}/${repo}. Added ${itemsAddedCount} new items to HisQu project.`);
+            }
+            
+            async function deleteFileIfExists(targetOwner, targetRepo, filePath, commitMessage) {
+              core.info(`Checking if file "${filePath}" exists in ${targetOwner}/${targetRepo} for deletion...`);
+              try {
+                // First, get the SHA of the file to delete it
+                const { data: existingFile } = await github.rest.repos.getContent({
+                  owner: targetOwner,
+                  repo: targetRepo,
+                  path: filePath,
+                });
+
+                // If getContent succeeds and returns file info (it will error with 404 if not found)
+                if (existingFile && existingFile.sha) {
+                  core.info(`File "${filePath}" found with SHA ${existingFile.sha}. Attempting to delete...`);
+                  await github.rest.repos.deleteFile({
+                    owner: targetOwner,
+                    repo: targetRepo,
+                    path: filePath,
+                    message: commitMessage,
+                    sha: existingFile.sha,
+                  });
+                  core.info(`Successfully deleted file "${filePath}" from ${targetOwner}/${targetRepo}.`);
+                  return true;
+                } else {
+                  // Should not be reached if getContent behaves as expected (throws 404 or returns file data)
+                  core.info(`File "${filePath}" was checked but no SHA was found (or file is a directory). No deletion performed.`);
+                  return true; // Or false if this state is an error for you
+                }
+              } catch (error) {
+                if (error.status === 404) {
+                  core.info(`File "${filePath}" does not exist in ${targetOwner}/${targetRepo}. No deletion needed.`);
+                  return true; // File is not there, which is the goal.
+                } else {
+                  core.error(`Error during deletion process for file "${filePath}" in ${targetOwner}/${targetRepo}: ${error.message}`);
+                  // For more detail on the error object:
+                  // core.error(`Full error details: ${JSON.stringify(error)}`);
+                  return false; // An actual error occurred during the process
+                }
+              }
+            }
+
+            // --- Main Logic ---
+            const [templateOwner, templateRepoName] = templateRepoInput.split('/');
+            const targetRepoList = targetReposInput.split(',').map(repo => repo.trim());
+
+            // 1. Get labels from the template repository ONCE
+            core.info('Fetching labels from TEMPLATE repository...');
+            const templateLabels = await getLabels(templateOwner, templateRepoName);
+            if (!templateLabels) {
+               core.setFailed(`Could not fetch labels from template repo ${templateOwner}/${templateRepoName}. Aborting.`);
+               return;
+            }
+            const templateLabelNamesLower = new Set(templateLabels.map(label => label.name.toLowerCase()));
+            core.info(`Template labels fetched: ${Array.from(templateLabelNamesLower).join(', ')}`);
+
+
+            // 2. Get list of issue template files from template repo checkout ONCE
+            core.info('Checking for issue template files in template repository checkout...');
+            let issueTemplateFiles = [];
+            try {
+              if (fs.existsSync(issueTemplateSourceDir)) {
+                issueTemplateFiles = fs.readdirSync(issueTemplateSourceDir)
+                                      .filter(file => file.endsWith('.yml') || file.endsWith('.md')) // Include .md and .yml
+                                      .map(file => path.join(issueTemplateSourceDir, file));
+                if (issueTemplateFiles.length > 0) {
+                   core.info(`Found issue template files to sync: ${issueTemplateFiles.map(f => path.basename(f)).join(', ')}`);
+                } else {
+                   core.warning(`No .yml or .md files found in ${issueTemplateSourceDir}.`);
+                }
+              } else {
+                 core.warning(`Issue template source directory ${issueTemplateSourceDir} not found in checkout. Skipping issue template sync.`);
+              }
+            } catch (error) {
+               core.error(`Error reading issue template directory ${issueTemplateSourceDir}: ${error.message}. Skipping issue template sync.`);
+            }
+            
+            core.info('Defining specific workflow files to sync...');
+            // Liste der Workflows, die Sie gezielt synchronisieren möchten
+            const workflowsToSyncByName = [
+                'toc.yml'
+            ];
+            
+            const workflowFiles = workflowsToSyncByName.map(fileName => path.join(workflowSourceDir, fileName));
+            
+            // Prüfen, ob die definierten Dateien auch existieren
+            workflowFiles.forEach(filePath => {
+                if (!fs.existsSync(filePath)) {
+                    core.warning(`Defined workflow file to sync does not exist: ${filePath}`);
+                }
+            });
+            
+            core.info(`Found ${workflowFiles.length} specific workflow files to sync: ${workflowsToSyncByName.join(', ')}`);
+
+            // 3. Iterate through target repositories and sync
+            let overallSuccess = true;
+            for (const targetRepoFullName of targetRepoList) {
+              const [targetOwner, targetRepoName] = targetRepoFullName.split('/');
+              if (!targetOwner || !targetRepoName) {
+                  core.warning(`Skipping invalid target repo format: ${targetRepoFullName}`);
+                  continue;
+              }
+              core.info(`\n--- Processing target repo: ${targetOwner}/${targetRepoName} ---`);
+
+              // == Sync Labels ==
+              core.info(`Starting label sync for ${targetOwner}/${targetRepoName}...`);
+              const targetLabels = await getLabels(targetOwner, targetRepoName);
+               if (targetLabels === null) {
+                 core.warning(`Skipping label sync for ${targetOwner}/${targetRepoName} due to fetch error.`);
+                 overallSuccess = false;
+                 continue; // Skip to next repo if we can't get labels
+               }
+              const targetLabelNamesLower = new Set(targetLabels.map(label => label.name.toLowerCase()));
+
+              // Create missing labels
+              let createdCount = 0;
+              for (const label of templateLabels) {
+                  if (await createLabelIfNotExists(targetOwner, targetRepoName, targetLabelNamesLower, label)) {
+                      createdCount++;
+                  }
+              }
+              core.info(`Created ${createdCount} missing labels.`);
+
+              // Prune extra labels (if requested)
+              if (pruneLabels) {
+                  core.info(`Pruning enabled. Checking for extra labels in target...`);
+                  let deletedCount = 0;
+                  const labelsToDelete = targetLabels.filter(label => !templateLabelNamesLower.has(label.name.toLowerCase()));
+
+                  if (labelsToDelete.length > 0) {
+                      core.info(`Found ${labelsToDelete.length} labels to delete: ${labelsToDelete.map(l => l.name).join(', ')}`);
+                      for (const label of labelsToDelete) {
+                          if (await deleteLabel(targetOwner, targetRepoName, label.name)) {
+                              deletedCount++;
+                          } else {
+                              overallSuccess = false; // Mark failure if deletion fails
+                          }
+                      }
+                      core.info(`Deleted ${deletedCount} extra labels.`);
+                  } else {
+                      core.info('No extra labels found in target to prune.');
+                  }
+              } else {
+                  core.info('Pruning disabled. Skipping deletion of extra labels.');
+              }
+              core.info(`Finished label sync for ${targetOwner}/${targetRepoName}.`);
+
+
+               // == Sync Issue Templates ==
+              if (issueTemplateFiles.length > 0) {
+                core.info(`Starting issue template sync for ${targetOwner}/${targetRepoName}...`);
+                let templatesSyncedCount = 0;
+                 for (const templateFile of issueTemplateFiles) {
+                   if (await syncFile(targetOwner, targetRepoName, templateFile, issueTemplateTargetDir)) {
+                       templatesSyncedCount++;
+                   } else {
+                       overallSuccess = false; // Mark as failed if any template sync fails
+                   }
+                 }
+                 // Check if count matches expected (useful for debugging)
+                 if (templatesSyncedCount === issueTemplateFiles.length) {
+                     core.info(`Finished issue template sync for ${targetOwner}/${targetRepoName}. Processed all ${templatesSyncedCount} template files successfully.`);
+                 } else {
+                     core.warning(`Finished issue template sync for ${targetOwner}/${targetRepoName}. Processed ${templatesSyncedCount} out of ${issueTemplateFiles.length} template files.`);
+                 }
+              } else {
+                 core.info(`Skipping issue template sync for ${targetOwner}/${targetRepoName} as no template files were found initially.`);
+              }
+
+              
+              // == Sync Workflows ==
+              if (workflowFiles.length > 0) {
+                core.info(`Starting workflow sync for ${targetOwner}/${targetRepoName}...`);
+                let workflowsSyncedCount = 0;
+                for (const workflowFile of workflowFiles) {
+                  if (await syncFile(targetOwner, targetRepoName, workflowFile, workflowTargetDir)) {
+                    workflowsSyncedCount++;
+                  } else {
+                    overallSuccess = false; 
+                  }
+                }
+                if (workflowsSyncedCount === workflowFiles.length) {
+                  core.info(`Finished workflow sync for ${targetOwner}/${targetRepoName}. Processed all ${workflowsSyncedCount} workflow files successfully.`);
+                } else {
+                  core.warning(`Finished workflow sync for ${targetOwner}/${targetRepoName}. Processed ${workflowsSyncedCount} out of ${workflowFiles.length} workflow files.`);
+                }
+              } else {
+                core.info(`Skipping workflow sync for ${targetOwner}/${targetRepoName} as no workflow files were found initially.`);
+              }
+
+              core.info(`--- Starting cleanup of specific workflow files for ${targetOwner}/${targetRepoName} ---`);
+              const deleteCommitMsg = 'Admin: Remove deprecated auto-add to project workflows';
+              const filesToDelete = [
+                '.github/workflows/add-issue-to-hisqu-project.yml',
+                '.github/workflows/add-pr-to-project.yml',
+                '.github/workflows/auto-set-project-status-on-close.yml'
+              ];
+
+              for (const fileToDelete of filesToDelete) {
+                core.info(`Attempting to delete workflow file: ${fileToDelete} from ${targetOwner}/${targetRepoName}...`);
+                const deletionSuccessful = await deleteFileIfExists(targetOwner, targetRepoName, fileToDelete, deleteCommitMsg);
+                if (!deletionSuccessful) {
+                    core.warning(`Deletion of ${fileToDelete} encountered an error for ${targetOwner}/${targetRepoName}. Please review logs.`);
+                    overallSuccess = false; 
+                }
+              }
+              core.info(`--- Finished cleanup of specific workflow files for ${targetOwner}/${targetRepoName} ---`);
+              
+                
+              core.info(`Syncing all existing issues to HisQu project for ${targetOwner}/${targetRepoName}...`);
+              await addAllIssuesAndPullRequestsToHisQuProject(targetOwner, targetRepoName);
+
+            } // End loop through target repos
+
+            core.info('\n--- Sync Process Complete ---');
+            if (!overallSuccess) {
+               core.setFailed('One or more errors occurred during the sync process. Please review logs above.');
+            } else {
+               core.info('Sync completed successfully for all processed repositories.');
+            }
