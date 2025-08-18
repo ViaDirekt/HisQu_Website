@@ -1,0 +1,84 @@
+---
+import {getCollection} from 'astro:content';
+import BaseLayout from '../../layouts/IndexLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Image from 'astro/components/Image.astro';
+
+const events = await getCollection('events');
+
+// Split upcoming vs past (compare by start date)
+const now = new Date().getTime();
+const upcoming = events
+    .filter(e => e.data.start.getTime() >= now)
+    .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+
+const past = events
+    .filter(e => e.data.start.getTime() < now)
+    .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+---
+
+<BaseLayout title="Events">
+    {upcoming.length > 0 && (
+            <>
+                <h2>Upcoming Events</h2>
+                <ul class="posts" transition:name="post">
+                    {upcoming.map((ev) => (
+                            <li class="post">
+                                <div class="version_wrapper">
+                                    <div class="version_info">
+                                        <a href={`/events/${ev.id}`}>
+                                            <FormattedDate class="date" date={ev.data.start}/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    {ev.data.image && (
+                                            <a href={`/events/${ev.id}`}>
+                                                <Image src={ev.data.image.src} alt={ev.data.image.alt} class="post-image"
+                                                     loading="lazy"/>
+                                            </a>
+                                    )}
+                                    <h3 class="title">
+                                        <a href={`/events/${ev.id}`}>{ev.data.title}</a>
+                                    </h3>
+                                    {ev.data.location && <p class="location">{ev.data.location}</p>}
+                                    <p class="description">{ev.data.description}</p>
+                                </div>
+                            </li>
+                        ))}
+                        </ul>
+                        </>
+                        )}
+
+                    {past.length > 0 && (
+                            <>
+                                <h2>Past Events</h2>
+                                <ul class="posts" transition:name="post">
+                                    {past.map((ev) => (
+                                            <li class="post">
+                                                <div class="version_wrapper">
+                                                    <div class="version_info">
+                                                        <a href={`/events/${ev.id}`}>
+                                                            <FormattedDate class="date" date={ev.data.start}/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="content">
+                                                    {ev.data.image && (
+                                                            <a href={`/events/${ev.id}`}>
+                                                                <Image src={ev.data.image.src} alt={ev.data.image.alt}
+                                                                     class="post-image" loading="lazy"/>
+                                                            </a>
+                                                    )}
+                                                    <h3 class="title">
+                                                        <a href={`/events/${ev.id}`}>{ev.data.title}</a>
+                                                    </h3>
+                                                    {ev.data.location && <p class="location">{ev.data.location}</p>}
+                                                    <p class="description">{ev.data.description}</p>
+                                                </div>
+                                            </li>
+                                        ))}
+                                        </ul>
+                                        </>
+                                        )}
+                                        </BaseLayout>

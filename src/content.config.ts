@@ -18,4 +18,46 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+const publications = defineCollection({
+	loader: glob({ base: './src/content/publications', pattern: '**/*.md' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// commonly useful fields for publications
+			authors: z.array(z.string()).optional(),
+			venue: z.string().optional(), // journal / conference
+			doi: z.string().optional(),
+			url: z.string().url().optional(),
+			pdf: z.string().optional(),
+			image: z
+				.object({
+					src: image(),
+					alt: z.string(),
+				})
+				.optional(),
+			date: z.date({ coerce: true }), // publication date
+		}),
+});
+
+const events = defineCollection({
+	loader: glob({ base: './src/content/events', pattern: '**/*.md' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// core event fields
+			start: z.date({ coerce: true }),
+			end: z.date({ coerce: true }).optional(),
+			location: z.string().optional(),
+			url: z.string().url().optional(), // event website/registration
+			image: z
+				.object({
+					src: image(),
+					alt: z.string(),
+				})
+				.optional(),
+		}),
+});
+
+export const collections = { blog, publications, events };

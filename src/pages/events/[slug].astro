@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/PostLayout.astro';
+import Image from 'astro/components/Image.astro';
+
+export async function getStaticPaths() {
+    const events = await getCollection('events');
+    return events.map((ev) => ({
+        params: { slug: ev.id },
+        props: { ev },
+    }));
+}
+
+const { ev } = Astro.props;
+const { Content } = await render(ev);
+---
+
+<Layout blogpost={ev}>
+    <header>
+        <h1>{ev.data.title}</h1>
+        <p>
+            <strong>Date:</strong> {ev.data.start.toDateString()}
+            {ev.data.end && ` – ${ev.data.end.toDateString()}`}
+            {ev.data.location && ` · ${ev.data.location}`}
+        </p>
+        {ev.data.url && (
+                <p><a href={ev.data.url} rel="noopener noreferrer">Event website</a></p>
+        )}
+        {ev.data.image && (
+                <Image src={ev.data.image.src} alt={ev.data.image.alt} />
+        )}
+    </header>
+
+    <Content />
+</Layout>

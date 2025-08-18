@@ -12,7 +12,7 @@ const steps: Step[] = [
         label: '1. Creation',
         description: 'Digitisation of historical sources',
         angle: -90,
-        tools: [{name: 'Digitisation pipeline', status: 'ready'}],
+        tools: [{name: 'Romana Repertoria Online', status: 'ready', href: "http://www.romana-repertoria.net/993.html"}],
     },
     {
         key: 'modelling',
@@ -54,7 +54,7 @@ const steps: Step[] = [
 ];
 ---
 
-<section class="hero">
+<section class="hero max-w-7xl mx-auto">
     <div>
         <h1>FAIR-by-design research infrastructure</h1>
         <p class="dark:text-gray-100">
@@ -62,7 +62,7 @@ const steps: Step[] = [
             marked as work-in-progress.
         </p>
         <div class="cta">
-            <a href="/contact" class="btn primary">Talk to us</a>
+            <a href="/tools" class="btn primary">The Toolchain</a>
             <a target="_blank" href={GitHubLink} class="btn">Our GitHub</a>
         </div>
     </div>

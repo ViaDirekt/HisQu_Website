@@ -1,0 +1,52 @@
+---
+// src/pages/publications/index.astro
+import {getCollection} from 'astro:content';
+import Layout from '../../layouts/IndexLayout.astro'; // or your preferred layout
+import FormattedDate from '../../components/FormattedDate.astro'; // if you have it
+import Image from 'astro/components/Image.astro';
+
+const publications = (await getCollection('publications'))
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Publications">
+    <h2>Publications</h2>
+    <ul class="posts" transition:name="post">
+        {publications.map((pub) => (
+                <li class="post">
+                    <div class="version_wrapper">
+                        <div class="version_info">
+                            <a href={`/publications/${pub.id}`}>
+                                <FormattedDate class="date" date={pub.data.date}/>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        {pub.data.image && (
+                                <a href={`/publications/${pub.id}`}>
+                                    <Image
+                                            src={pub.data.image.src}
+                                            alt={pub.data.image.alt}
+                                            class="post-image"
+                                            loading="lazy"
+                                    />
+                                </a>
+                        )}
+
+                        <h2 class="title">
+                            <a href={`/publications/${pub.id}`}>{pub.data.title}</a>
+                        </h2>
+
+                        {pub.data.authors && (
+                                <p class="authors">{pub.data.authors.join(', ')}</p>
+                        )}
+
+                        {pub.data.venue && <p class="venue">{pub.data.venue}</p>}
+
+                        <p class="description">{pub.data.description}</p>
+                    </div>
+                </li>
+            ))}
+            </ul>
+            </BaseLayout>

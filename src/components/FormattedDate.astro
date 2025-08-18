@@ -2,24 +2,41 @@
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'time'> & {
-	date: Date;
+    date?: Date | string | number; // accept wider inputs
+    locale?: string;
+    format?: Intl.DateTimeFormatOptions;
 };
 
-const { date, ...attrs } = Astro.props;
+const {
+    date,
+    locale = 'en-US',
+    format = { year: 'numeric', month: 'short', day: 'numeric' },
+    ...attrs
+} = Astro.props as Props;
+
+// Parse to Date
+const d =
+    date == null
+        ? undefined
+        : date instanceof Date
+            ? date
+            : new Date(date);
+
+// Validate
+const isValid = d instanceof Date && !Number.isNaN(d.getTime());
+
+// Dev-only hint if something is wrong
+if (!isValid && import.meta.env.DEV) {
+    console.warn('[FormattedDate] Invalid or missing `date` prop:', date);
+}
 ---
 
-<time datetime={date.toISOString()} {...attrs}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
+{isValid ? (
+<time datetime={d!.toISOString()} {...attrs}>
+    {d!.toLocaleDateString(locale, format)}
 </time>
+    ) : null}
 
 <style>
-	time {
-		display: block;
-	}
+    time { display: block; }
 </style>

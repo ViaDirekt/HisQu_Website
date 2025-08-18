@@ -1,0 +1,134 @@
+---
+export interface CTA {
+    href: string;
+    label: string;
+}
+
+export interface ImageItem {
+    src: string;
+    alt?: string;
+}
+
+export interface Props {
+    title?: string;
+    description?: string;
+    eyebrow?: string;
+    ctaPrimary?: CTA;
+    ctaSecondary?: CTA;
+    /** 3–6 images recommended; component will lay them out in 3 columns */
+    images?: ImageItem[];
+    /** tweak gradient colors */
+    gradientFrom?: string;
+    gradientTo?: string;
+    /** Optional custom id for the SVG pattern to avoid collisions */
+    patternId?: string;
+    /** Add additional classes to the outer wrapper */
+    class?: string;
+}
+
+const {
+    title = "A flexible infrastructure for the digital humanities",
+    description =
+        "Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor.",
+    eyebrow,
+    ctaPrimary,
+    ctaSecondary,
+    images = [
+        { src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&h=528&q=80", alt: "Team collaborating on laptops" },
+        { src: "https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&h=528&q=80", alt: "Hands stacked in teamwork" },
+        { src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80", alt: "Smiling person holding phone" },
+        { src: "https://images.unsplash.com/photo-1670272504528-790c24957dda?auto=format&fit=crop&crop=left&w=400&h=528&q=80", alt: "Casual conversation in office" },
+        { src: "https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?auto=format&fit=crop&h=528&q=80", alt: "Coworkers brainstorming at a whiteboard" },
+    ],
+    gradientFrom = "#ff80b5",
+    gradientTo = "#9089fc",
+    patternId = "grid-pattern-" + Math.random().toString(36).slice(2, 9),
+    class: outerClass = "",
+} = Astro.props as Props;
+
+// split images into 3 columns with a pleasing stagger similar to the original
+const colA = images.filter((_, i) => i % 3 === 0);
+const colB = images.filter((_, i) => i % 3 === 1);
+const colC = images.filter((_, i) => i % 3 === 2);
+---
+<section class={`relative isolate -z-10 ${outerClass}`}
+         aria-label={title}
+>
+    <!-- Decorative grid background -->
+    <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)] stroke-gray-200 dark:stroke-white/10" aria-hidden="true">
+        <defs>
+            <pattern id={patternId} width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+        </defs>
+        <svg x="50%" y="-1" class="overflow-visible fill-gray-50 dark:fill-gray-800">
+            <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
+        </svg>
+        <rect width="100%" height="100%" stroke-width="0" fill={`url(#${patternId})`} />
+    </svg>
+
+    <!-- Soft gradient blob -->
+    <div class="absolute top-0 right-0 left-1/2 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48" aria-hidden="true">
+        <div class="aspect-[801/1036] w-[50.0625rem]" style={`background-image: linear-gradient(to top right, ${gradientFrom}, ${gradientTo}); opacity: 0.3; clip-path: polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)`}></div>
+    </div>
+
+    <div class="overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6 pt-36 pb-32 sm:pt-60 lg:px-8 lg:pt-32">
+            <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+                <div class="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
+                    {eyebrow && (
+                            <p class="text-sm/6 font-semibold tracking-wide text-indigo-600 dark:text-indigo-400">{eyebrow}</p>
+                    )}
+                    <h1 class="mt-2 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl dark:text-white">{title}</h1>
+                    <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none dark:text-gray-400">{description}</p>
+
+                    {(ctaPrimary || ctaSecondary) && (
+                            <div class="mt-10 flex items-center gap-4">
+                                {ctaPrimary && (
+                                        <a href={ctaPrimary.href} class="inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-semibold shadow-lg ring-1 ring-black/5 transition hover:translate-y-[-1px] hover:shadow-xl bg-gray-900 text-white dark:bg-white dark:text-gray-900">
+                                            {ctaPrimary.label}
+                                        </a>
+                                )}
+                                {ctaSecondary && (
+                                        <a href={ctaSecondary.href} class="inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-semibold ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:ring-white/10 dark:hover:ring-white/20">
+                                            {ctaSecondary.label}
+                                        </a>
+                                )}
+                                <slot name="actions" />
+                            </div>
+                    )}
+                </div>
+
+                <!-- Staggered image mosaic -->
+                <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                    <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-0 xl:pt-80">
+                        {colA.map((img) => (
+                                <div class="relative">
+                                    <img src={img.src} alt={img.alt ?? ""} loading="lazy" decoding="async" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg dark:bg-gray-700/5" />
+                                    <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+                                </div>
+                        ))}
+                    </div>
+
+                    <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+                        {colB.map((img) => (
+                                <div class="relative">
+                                    <img src={img.src} alt={img.alt ?? ""} loading="lazy" decoding="async" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg dark:bg-gray-700/5" />
+                                    <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+                                </div>
+                        ))}
+                    </div>
+
+                    <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                        {colC.map((img) => (
+                                <div class="relative">
+                                    <img src={img.src} alt={img.alt ?? ""} loading="lazy" decoding="async" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg dark:bg-gray-700/5" />
+                                    <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+                                </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
