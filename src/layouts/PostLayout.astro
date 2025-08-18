@@ -23,10 +23,11 @@ const { blogpost } = Astro.props;
 			description={blogpost.data.description}
 			image={blogpost.data.image}
 		/>
-	</head><body class="dark:bg-gray-900">
+	</head>
+	<body class="dark:bg-gray-900">
 		<div class="glow"></div>
 		<Header />
-		<div class="post single" transition:persist transition:name="post">
+		<div class="post single max-w-7xl mx-auto" transition:persist transition:name="post">
 			<div class="version_wrapper">
 				<div class="version_info">
 					<FormattedDate class="date" date={blogpost.data.date} />

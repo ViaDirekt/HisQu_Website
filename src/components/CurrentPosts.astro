@@ -19,9 +19,7 @@ posts.sort((a, b) => +b.data.date - +a.data.date);
                         </div>
 
                         <div class="content">
-                            <h2>
-                                <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                            </h2>
+                            <a href={`/blog/${post.id}`}><h2>{post.data.title}</h2></a>
                             <p class="description">{post.data.description}</p>
                             <a href={`/blog/${post.id}`}>
                                 <Image
