@@ -308,11 +308,11 @@ footer {
 	gap: clamp(1.5rem, 4vw, 3rem);
 	align-items: center;
 	padding: clamp(2rem, 6vw, 5rem) 1rem;
+	border-radius: 1.25rem;
 	@media (prefers-color-scheme: dark) {
 		background: radial-gradient(1200px 600px at 120% -20%, #273, transparent), radial-gradient(900px 500px at -20% 120%, #234, transparent),
 		var(--bg);
 	}
-	border-radius: 1.25rem;
 }
 
 .copy h1 {
@@ -343,7 +343,7 @@ footer {
 
 .btn.primary {
 	background: linear-gradient(135deg, colors.color(purple, 500), #7f7cff);
-	color: #0b0b10;
+	color: white;
 	border-color: transparent;
 	font-weight: 600;
 }

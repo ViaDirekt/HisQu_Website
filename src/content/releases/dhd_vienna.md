@@ -1,24 +1,24 @@
 ---
-title: 'Introducing Nebulous 2.0!'
-date: '2022-07-01'
-versionNumber: '2.0'
+title: 'HisQu at the DHd in Vienna!'
+date: '2025-12-29'
+versionNumber: '0'
 description: 'This is the first post of my new Astro blog.'
 image:
-  src: '../../../assets/starlog-placeholder-2.jpg'
+  src: '../../assets/starlog-placeholder-2.jpg'
   alt: 'The full Astro logo.'
 ---
 
-## HisQu auf der DHd Wien
+## HisQu at the DHd in Vienna!
 
-![Nebulous 2.0 Release](../../../assets/image.vH2ZM2ku_3g5zp.webp)
+![Nebulous 2.0 Release](../../assets/image.vH2ZM2ku_3g5zp.webp)
 
 Greetings, Nebulous users! We're excited to bring you the latest updates in our [ever-evolving tech ecosystem](#). In this release, we're introducing some exciting new features and squashing a few pesky bugs. Let's dive in!
 
 ### 🍿 Our Submissions
 
-- **Paredros:** Grammar development environment. See our [Paredros Frontend repository](https://github.com/HisQu/paredros-app/)! 
+- **Paredros:** Grammar development environment. See our [Paredros Frontend repository](https://github.com/HisQu/paredros-app/)!
 - **OPA:** Ontology Parser Assistant. See our [OPA repository](https://github.com/HisQu/OPA/)!
-- **NebulaConnect for Teams:** Collaborate 
+- **NebulaConnect for Teams:** Collaborate
 
 ### 🐞 Bug Fixes
 
