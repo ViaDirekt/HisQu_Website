@@ -19,7 +19,9 @@ const { ...head } = Astro.props;
 	<body class="dark:bg-gray-900">
 		<div class="glow"></div>
 		<Header />
-		<slot />
+		<div class="max-w-7xl mx-auto">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>

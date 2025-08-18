@@ -4,9 +4,9 @@ import {dfg, partners} from "../consts";
 
 const isLocal = (src: string) => !/^https?:\/\//.test(src);
 ---
-<section class="mx-auto max-w-7xl">
+<section>
     <div class="py-24">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="px-6 lg:px-8">
             <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none bg-white p-10 rounded-2xl">
                 {partners.map((p, i) => (
                         <a target="_blank" href={p.href}
