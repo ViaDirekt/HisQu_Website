@@ -9,47 +9,46 @@ type Step = { key: string; label: string; description: string; angle: number; to
 const steps: Step[] = [
     {
         key: 'creation',
-        label: 'Creation',
+        label: '1. Creation',
         description: 'Digitisation of historical sources',
         angle: -90,
-        tools: [{name: 'Digitisation pipeline', status: 'wip', note: 'In progress'}],
+        tools: [{name: 'Digitisation pipeline', status: 'ready'}],
     },
     {
         key: 'modelling',
-        label: 'Modelling',
+        label: '2. Modelling',
         description: 'A key aspect of the development: The Ontology',
-        angle: -30,
-        tools: [{name: 'Ontology Pipeline Assistant', href: '/tools/opa', status: 'ready', note: 'In progress'}],
+        angle: -25,
+        tools: [{name: 'Ontology Pipeline Assistant', href: '/tools/opa', status: 'ready'}],
     },
     {
         key: 'processing',
-        label: 'Processing',
+        label: '3. Processing',
         description: 'Data extraction · LLM API connection',
-        angle: 30,
+        angle: 25,
         tools: [
             {name: 'Paredros', href: '/tools/paredros', status: 'ready'},
-            {name: 'LLM Connector', status: 'wip'},
         ],
     },
     {
         key: 'analysis',
-        label: 'Analysis',
+        label: '4. Analysis',
         description: 'AI-supported SPARQL endpoint',
         angle: 90,
         tools: [{name: 'Query by Graph', href: '/tools/quebyg', status: 'ready'}],
     },
     {
         key: 'archiving',
-        label: 'Archiving',
+        label: '5. Archiving',
         description: 'Linked Open Data via Wikibase / FactGrid',
-        angle: 150,
+        angle: 155,
         tools: [{name: 'FactGrid', href: 'https://database.factgrid.de/', status: 'ready'}],
     },
     {
         key: 'reuse',
-        label: 'Use',
+        label: '6. Use',
         description: 'Documentation framework for research processes',
-        angle: 210,
+        angle: 205,
         tools: [{name: 'Doku framework', status: 'wip'}],
     },
 ];
@@ -58,8 +57,10 @@ const steps: Step[] = [
 <section class="hero">
     <div>
         <h1>FAIR-by-design research infrastructure</h1>
-        <p class="darK:text-gray-100">One iterative workflow—from creation to reuse—with tools you can plug in today and placeholders clearly
-            marked as work-in-progress.</p>
+        <p class="dark:text-gray-100">
+            One iterative workflow &mdash; from creation to reuse.
+            marked as work-in-progress.
+        </p>
         <div class="cta">
             <a href="/contact" class="btn primary">Talk to us</a>
             <a target="_blank" href={GitHubLink} class="btn">Our GitHub</a>
@@ -70,12 +71,35 @@ const steps: Step[] = [
     <div class="diagram" aria-label="Iterative research workflow">
         <div class="ring" aria-hidden="true"></div>
         <div class="center">
-            <strong>Iterative process</strong>
+            Iterative Process
+
+            <!-- circular arrow overlay -->
+            <svg class="reload" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                    <!-- arrowhead -->
+                    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z" fill="#515151"></path>
+                    </marker>
+                </defs>
+
+                <!-- arc (almost a full circle, with a gap like a reload icon) -->
+                <!-- radius 45, center 50/50, starts at top (50,5) and goes CCW nearly full circle -->
+                <path
+                        class="arc"
+                        d="M50,5
+         A45,45 0 1 1 49.99,5"
+                        fill="none"
+                        stroke="#515151"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        marker-end="url(#arrowhead)"
+                />
+            </svg>
         </div>
         {
             steps.map((s) => (
                     <div class="node" style={`--angle:${s.angle}deg`} data-key={s.key}>
-                        <button class="step" aria-haspopup="true" aria-expanded="false">
+                        <button class="step bg-white dark:bg-gray-800" aria-haspopup="true" aria-expanded="false">
                             <span class="title">{s.label}</span>
                             <span class="desc">{s.description}</span>
                         </button>

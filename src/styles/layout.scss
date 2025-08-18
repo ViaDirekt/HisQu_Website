@@ -383,9 +383,29 @@ footer {
 	display: grid;
 	place-items: center;
 	text-align: center;
-	border: 1px solid #2b2e3a;
+	border: 1px solid #515151;
 	border-radius: 50%;
 	padding: 1rem;
+	overflow: visible;
+}
+
+.reload {
+	position: absolute;
+	inset: -6px;
+	width: calc(100% + 12px);
+	height: calc(100% + 12px);
+	pointer-events: none;
+	animation: spin 6.6s linear infinite;
+	transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+/* Optional: pause on hover */
+.center:hover .reload {
+	animation-play-state: paused;
 }
 
 .center strong {}

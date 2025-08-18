@@ -9,19 +9,19 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
 type Props = {
-	release: CollectionEntry<'blog'>;
+	blogpost: CollectionEntry<'blog'>;
 };
 
-const { release } = Astro.props;
+const { blogpost } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead
-			title={release.data.title}
-			description={release.data.description}
-			image={release.data.image}
+			title={blogpost.data.title}
+			description={blogpost.data.description}
+			image={blogpost.data.image}
 		/>
 	</head><body class="dark:bg-gray-900">
 		<div class="glow"></div>
@@ -29,7 +29,7 @@ const { release } = Astro.props;
 		<div class="post single" transition:persist transition:name="post">
 			<div class="version_wrapper">
 				<div class="version_info">
-					<FormattedDate class="date" date={release.data.date} />
+					<FormattedDate class="date" date={blogpost.data.date} />
 				</div>
 			</div>
 			<div class="content">

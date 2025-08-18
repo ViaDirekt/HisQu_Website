@@ -31,17 +31,7 @@ export type Partner = {
 
 export const partners: Partner[] = [
     {
-        name: "Deutsche Forschungsgemeinschaft",
-        alt: "Deutsche Forschungsgemeinschaft",
-        srcLight: dfgLogoSvg,
-        srcDark: dfgLogoSvg, // gleiches Asset in Dark erlaubt
-        width: 158,
-        height: 48,
-        href: "https://www.dfg.de/"
-    },
-    {
         name: "Deutsches Historisches Institut",
-        alt: "Deutsches Historisches Institut",
         srcLight: dhiLogo,
         srcDark: dhiLogo,
         width: 158,
@@ -50,7 +40,6 @@ export const partners: Partner[] = [
     },
     {
         name: "FactGrid Initiative",
-        alt: "FactGrid Initiative",
         srcLight: factGridLogo,
         srcDark: factGridLogo,
         width: 158,
@@ -59,7 +48,6 @@ export const partners: Partner[] = [
     },
     {
         name: "Germania Sacra Göttingen",
-        alt: "Germania Sacra Göttingen",
         srcLight: gsLogo,
         srcDark: gsLogo,
         width: 158,
@@ -68,7 +56,6 @@ export const partners: Partner[] = [
     },
     {
         name: "MEPHISTO Arbeitsgruppe Jena",
-        alt: "MEPHISTO Arbeitsgruppe Jena",
         srcLight: mephisto03,
         srcDark: mephisto03,
         width: 158,
@@ -76,3 +63,13 @@ export const partners: Partner[] = [
         href: "https://mephisto.uni-jena.de"
     },
 ];
+
+
+export const dfg: Partnter = {
+    name: "Deutsche Forschungsgemeinschaft",
+    srcLight: dfgLogoSvg,
+    srcDark: dfgLogoSvg, // gleiches Asset in Dark erlaubt
+    width: 158,
+    height: 48,
+    href: "https://www.dfg.de/"
+};
