@@ -1,12 +1,10 @@
 ---
-import '../styles/global.scss';
+import {GitHubLink, SiteDescription, SiteTitle} from "../consts";
 ---
 
 <footer>
-	<p>© 2023</p>
+	<p>© 2025, {SiteTitle} &mdash; {SiteDescription}</p>
 	<div class="footer_links">
-		<a href="#">Discord</a>
-		<a href="#">X</a>
-		<a href="#">GitHub</a>
+		<a href={GitHubLink}>GitHub</a>
 	</div>
 </footer>

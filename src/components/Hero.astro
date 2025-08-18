@@ -1,6 +1,8 @@
 ---
 // src/components/Hero.astro
 // Update the steps/tools below.  status: 'ready' | 'wip'
+
+import {GitHubLink} from "../consts";
 type Tool = { name: string; href?: string; status?: 'ready' | 'wip'; note?: string };
 type Step = { key: string; label: string; description: string; angle: number; tools: Tool[] };
 
@@ -15,9 +17,9 @@ const steps: Step[] = [
     {
         key: 'modelling',
         label: 'Modelling',
-        description: 'Ontology development',
+        description: 'A key aspect of the development: The Ontology',
         angle: -30,
-        tools: [{name: 'Ontology editor', status: 'wip', note: 'In progress'}],
+        tools: [{name: 'Ontology Pipeline Assistant', href: '/tools/opa', status: 'ready', note: 'In progress'}],
     },
     {
         key: 'processing',
@@ -25,7 +27,7 @@ const steps: Step[] = [
         description: 'Data extraction · LLM API connection',
         angle: 30,
         tools: [
-            {name: 'Paredros', href: '#paredros', status: 'ready'},
+            {name: 'Paredros', href: '/tools/paredros', status: 'ready'},
             {name: 'LLM Connector', status: 'wip'},
         ],
     },
@@ -34,7 +36,7 @@ const steps: Step[] = [
         label: 'Analysis',
         description: 'AI-supported SPARQL endpoint',
         angle: 90,
-        tools: [{name: 'SPARQL UI', status: 'wip'}],
+        tools: [{name: 'Query by Graph', href: '/tools/quebyg', status: 'ready'}],
     },
     {
         key: 'archiving',
@@ -54,13 +56,13 @@ const steps: Step[] = [
 ---
 
 <section class="hero">
-    <div class="copy">
+    <div>
         <h1>FAIR-by-design research infrastructure</h1>
-        <p>One iterative workflow—from creation to reuse—with tools you can plug in today and placeholders clearly
+        <p class="darK:text-gray-100">One iterative workflow—from creation to reuse—with tools you can plug in today and placeholders clearly
             marked as work-in-progress.</p>
         <div class="cta">
-            <a href="#contact" class="btn primary">Talk to us</a>
-            <a href="#tools" class="btn">Explore tools</a>
+            <a href="/contact" class="btn primary">Talk to us</a>
+            <a target="_blank" href={GitHubLink} class="btn">Our GitHub</a>
         </div>
     </div>
 
@@ -69,9 +71,7 @@ const steps: Step[] = [
         <div class="ring" aria-hidden="true"></div>
         <div class="center">
             <strong>Iterative process</strong>
-            <span>FAIR principles</span>
         </div>
-
         {
             steps.map((s) => (
                     <div class="node" style={`--angle:${s.angle}deg`} data-key={s.key}>
@@ -155,258 +155,3 @@ const steps: Step[] = [
         }
     </script>
 </section>
-
-<style>
-    :root {
-        --bg: #0b0b10;
-        --fg: #e8e8ee;
-        --muted: #b9bbca;
-        --accent: #6c8cff;
-        --accent2: #69f0ae;
-        --ring: conic-gradient(from 270deg, var(--accent), var(--accent2), var(--accent));
-    }
-
-    .hero {
-        display: grid;
-        grid-template-columns: 1.1fr 1fr;
-        gap: clamp(1.5rem, 4vw, 3rem);
-        align-items: center;
-        padding: clamp(2rem, 6vw, 5rem) 1rem;
-        color: var(--fg);
-        background: radial-gradient(1200px 600px at 120% -20%, #273, transparent),
-        radial-gradient(900px 500px at -20% 120%, #234, transparent),
-        var(--bg);
-        border-radius: 1.25rem;
-    }
-
-    .copy h1 {
-        font-size: clamp(2rem, 4vw, 3.2rem);
-        line-height: 1.05;
-        margin: 0 0 .6rem
-    }
-
-    .copy p {
-        color: var(--muted);
-        max-width: 48ch;
-    }
-
-    .cta {
-        margin-top: 1.2rem;
-        display: flex;
-        gap: .75rem;
-    }
-
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: .5rem;
-        padding: .75rem 1rem;
-        border: 1px solid #2b2e3a;
-        border-radius: .75rem;
-    }
-
-    .btn.primary {
-        background: linear-gradient(135deg, var(--accent), #7f7cff);
-        color: #0b0b10;
-        border-color: transparent;
-        font-weight: 600;
-    }
-
-    /* Diagram */
-    .diagram {
-        position: relative;
-        width: min(560px, 90vw);
-        aspect-ratio: 1/1;
-        margin-inline: auto;
-        /* Ring geometry (single source of truth) */
-        --ring-inset: 6%;
-        --ring-inner: 58%; /* inner cut of the donut used by the mask */
-        --ring-inner-f: .58; /* numeric form for calc() below */
-
-        /* Derived radii (in % of the diagram box) */
-        --outerR: calc(50% - var(--ring-inset)); /* ring’s outer radius */
-        --innerR: calc(var(--outerR) * var(--ring-inner-f)); /* ring’s inner radius */
-        --radius: calc((var(--outerR) + var(--innerR)) / 2); /* midpoint of the band */
-    }
-
-    .ring {
-        position: absolute;
-        inset: var(--ring-inset);
-        border-radius: 50%;
-        background: var(--ring);
-        mask: radial-gradient(circle at 50% 50%, transparent var(--ring-inner), #000 calc(var(--ring-inner) + 10%));
-        filter: blur(.5px);
-        opacity: .9;
-    }
-
-    .center {
-        position: absolute;
-        inset: 37% 37%;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        background: #12131a;
-        color: var(--muted);
-        border: 1px solid #2b2e3a;
-        border-radius: 50%;
-        padding: 1rem;
-    }
-
-    .center strong {
-        color: var(--fg);
-    }
-
-    .node {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        pointer-events: none;
-
-        /* moved here so BOTH .step and .popover inherit them */
-        --horizontal-stretch: 0.15;
-        --stretch-factor: calc(1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
-    }
-
-    .node > .step {
-        --horizontal-stretch: 0.15; /* Pushes nodes at 0/180deg out by 15%. Set to 0 for a perfect circle. */
-        --stretch-factor: calc(1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
-
-        position: absolute;
-        /* Place the card at the ring’s centerline using polar coords, applying the stretch factor */
-        left: calc(50% + cos(var(--angle)) * var(--radius) * var(--stretch-factor));
-        top: calc(50% + sin(var(--angle)) * var(--radius) * var(--stretch-factor));
-
-        /* Center the element on that point and keep it upright */
-        transform: translate(-50%, -50%);
-        width: 190px;
-        max-width: 42vw;
-        background: #11131a;
-        border: 1px solid #2b2e3a;
-        border-radius: .9rem;
-        padding: .7rem .8rem;
-        text-align: left;
-        cursor: pointer;
-        transition: transform .2s ease, box-shadow .2s;
-        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        pointer-events: auto;
-    }
-
-    .node > .step:hover, .node.open > .step {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-        transform: translate(-50%, -50%) scale(1.02);
-    }
-
-    .step {
-        width: auto;
-        min-width: 0;
-        padding: .5rem .7rem;
-    }
-
-    .step .title {
-        font-weight: 700;
-    }
-
-    .step .desc {
-        display: block;
-        font-size: .8rem;
-        color: var(--muted);
-    }
-    .popover {
-        position: absolute;
-
-        /* same polar coordinates as the step */
-        left: calc(50% + cos(var(--angle)) * var(--radius) * var(--stretch-factor));
-        top:  calc(44% + sin(var(--angle)) * var(--radius) * var(--stretch-factor));
-
-        /* push it straight down under the card */
-        --popup-offset: 78px; /* tweak as needed to clear the card’s height */
-        transform: translate(-50%, var(--popup-offset));
-
-        min-width: 220px;
-        max-width: 280px;
-        background: #0f1016;
-        border: 1px solid #2b2e3a;
-        border-radius: .75rem;
-        padding: .75rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .18s ease;
-        z-index: 3;
-    }
-
-    .node:has(> .step:hover) .popover,
-    .node:has(> .popover:hover) .popover,
-    .node:has(.popover:focus-within) .popover,
-    .node.open .popover {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .popover h3 {
-        margin: .1rem 0 .5rem;
-        font-size: .9rem;
-        color: var(--muted)
-    }
-
-    .popover ul {
-        list-style: none;
-        display: grid;
-        gap: .4rem;
-        padding: 0;
-        margin: 0;
-    }
-
-    .popover li a, .popover li span {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: .55rem .6rem;
-        border: 1px solid #2b2e3a;
-        border-radius: .55rem;
-        text-decoration: none;
-        color: var(--fg);
-    }
-
-    .popover li.ready a:hover {
-        border-color: var(--accent);
-    }
-
-    .popover li.wip {
-        opacity: .7
-    }
-
-    .popover li.wip span {
-        cursor: default
-    }
-
-    .popover li.wip em {
-        font-style: normal;
-        font-size: .72rem;
-        background: #1a1c27;
-        border: 1px dashed #3a3d4e;
-        padding: .08rem .35rem;
-        border-radius: .35rem;
-        color: var(--muted);
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-        .hero {
-            grid-template-columns: 1fr;
-        }
-
-        .copy {
-            text-align: center
-        }
-
-        .copy p {
-            margin-inline: auto
-        }
-
-        .cta {
-            justify-content: center
-        }
-    }
-</style>

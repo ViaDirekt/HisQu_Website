@@ -1,5 +1,8 @@
 ---
-import '../styles/global.scss';
+import "../styles/tailwind.css";
+import "../styles/globals.scss";
+
+import {SiteDescription, SiteTitle} from '../consts';
 ---
 <!doctype html>
 <html lang="en">
@@ -8,9 +11,10 @@ import '../styles/global.scss';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{SiteTitle} &mdash; {SiteDescription}</title>
 	</head>
 	<body>
+		<div style="outline: 3px solid hotpink">layout?</div>
 		<slot />
 	</body>
 </html>
