@@ -5,7 +5,7 @@ import Layout from '../layouts/IndexLayout.astro';
 import Hero from "../components/Hero.astro";
 import Sponsors from "../components/Sponsors.astro";
 
-const posts = await getCollection('releases');
+const posts = await getCollection('blog');
 posts.sort((a, b) => +b.data.date - +a.data.date);
 ---
 
@@ -19,8 +19,7 @@ posts.sort((a, b) => +b.data.date - +a.data.date);
 					<li class="post">
 						<div class="version_wrapper">
 							<div class="version_info">
-								<a href={`/releases/${post.id}`}>
-									<div class="version_number">{post.data.versionNumber}</div>
+								<a href={`/blog/${post.id}`}>
 									<FormattedDate class="date" date={post.data.date} />
 								</a>
 							</div>

@@ -55,6 +55,7 @@ export const partners: Partner[] = [
         srcDark: factGridLogo,
         width: 158,
         height: 48,
+        href: "https://factgrid.de/"
     },
     {
         name: "Germania Sacra Göttingen",
@@ -63,6 +64,7 @@ export const partners: Partner[] = [
         srcDark: gsLogo,
         width: 158,
         height: 48,
+        href: "https://adw-goe.de/germania-sacra/"
     },
     {
         name: "MEPHISTO Arbeitsgruppe Jena",
@@ -71,5 +73,6 @@ export const partners: Partner[] = [
         srcDark: mephisto03,
         width: 158,
         height: 48,
+        href: "https://mephisto.uni-jena.de"
     },
 ];

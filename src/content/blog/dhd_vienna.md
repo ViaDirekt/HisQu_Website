@@ -1,7 +1,6 @@
 ---
 title: 'HisQu at the DHd in Vienna!'
 date: '2025-12-29'
-versionNumber: '0'
 description: 'This is the first post of my new Astro blog.'
 image:
   src: '../../assets/starlog-placeholder-2.jpg'

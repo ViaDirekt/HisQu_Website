@@ -1,15 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const releases = defineCollection({
-	// Load Markdown files in the src/content/releases directory.
-	loader: glob({ base: './src/content/releases', pattern: '**/*.md' }),
+const blog = defineCollection({
+	// Load Markdown files in the src/content/blog directory.
+	loader: glob({ base: './src/content/blog', pattern: '**/*.md' }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
 			description: z.string(),
-			versionNumber: z.string(),
 			image: z.object({
 				src: image(),
 				alt: z.string(),
@@ -19,4 +18,4 @@ const releases = defineCollection({
 		}),
 });
 
-export const collections = { releases };
+export const collections = { blog };

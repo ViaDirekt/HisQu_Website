@@ -294,7 +294,7 @@ footer {
 /* Hero */
 
 :root {
-	--bg: #0b0b10;
+	--bg: oklch(21% 0.034 264.665);
 	--fg: #e8e8ee;
 	--muted: #b9bbca;
 	--accent: #9818e7; // same as purple 400
@@ -307,11 +307,13 @@ footer {
 	grid-template-columns: 1.1fr 1fr;
 	gap: clamp(1.5rem, 4vw, 3rem);
 	align-items: center;
-	padding: clamp(2rem, 6vw, 5rem) 1rem;
+	padding: clamp(2rem, 6vw, 5rem) 2rem;
 	border-radius: 1.25rem;
 	@media (prefers-color-scheme: dark) {
-		background: radial-gradient(1200px 600px at 120% -20%, #273, transparent), radial-gradient(900px 500px at -20% 120%, #234, transparent),
-		var(--bg);
+		background:
+			radial-gradient(1200px 600px at 120% -20%, #273, transparent),
+			radial-gradient(900px 500px at -20% 120%, #234, transparent),
+			var(--bg);
 	}
 }
 
