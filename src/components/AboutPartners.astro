@@ -1,0 +1,122 @@
+---
+/* AboutPartners.astro — Astro + Tailwind (dark mode ready). Icons are inlined SVGs. */
+---
+<div class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0 dark:bg-gray-900">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <svg class="absolute top-0 left-[max(50%,25rem)] h-256 w-512 -translate-x-1/2 mask-[radial-gradient(64rem_64rem_at_top,white,transparent)] stroke-gray-200 dark:stroke-gray-800" aria-hidden="true">
+            <defs>
+                <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                    <path d="M100 200V.5M.5 .5H200" fill="none" />
+                </pattern>
+            </defs>
+            <svg x="50%" y="-1" class="overflow-visible fill-gray-50 dark:fill-gray-800/50">
+                <path d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z" stroke-width="0" />
+            </svg>
+            <rect width="100%" height="100%" stroke-width="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
+        </svg>
+    </div>
+
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+        <!-- Header -->
+        <div class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div class="lg:pr-4">
+                <div class="lg:max-w-lg">
+                    <p class="text-base/7 font-semibold text-purple-600 dark:text-purple-400">Partner im Verbund</p>
+                    <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
+                        Meet the Consortium
+                    </h1>
+                    <p class="mt-6 text-xl/8 text-gray-700 dark:text-gray-300">
+                        HisQu wird von führenden Einrichtungen der Digital Humanities und Geschichtswissenschaft getragen.
+                        Der Verbund verbindet methodische Exzellenz in <strong>Computerlinguistik</strong> und <strong>Wissensgraphen</strong>
+                        mit langjähriger <strong>Editionserfahrung</strong> und <strong>Forschungsdaten-Kompetenz</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+                    class="w-3xl max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-228 dark:bg-gray-800 dark:ring-white/10"
+                    src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+                    alt="HisQu – Verbundpartner und Infrastruktur (Platzhaltervisual)"
+            />
+        </div>
+
+        <!-- Body -->
+        <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div class="lg:pr-4">
+                <div class="max-w-xl text-base/7 text-gray-600 lg:max-w-lg dark:text-gray-400">
+                    <p>
+                        Gemeinsam entwickeln wir eine <strong class="text-gray-900 dark:text-white">domänenagnostische Forschungsdateninfrastruktur</strong> für historische Quellen.
+                    </p>
+
+                    <ul role="list" class="mt-8 space-y-8 text-gray-600 dark:text-gray-400">
+                        <!-- FSU Jena -->
+                        <li class="flex gap-x-3">
+                            <!-- Icon -->
+                            <svg class="mt-1 size-5 flex-none text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M4 9a4 4 0 0 1 6.89-2.806A3 3 0 0 1 14 9h.5a3.5 3.5 0 0 1 0 7H6a4 4 0 0 1-2-7.5V9Zm5.22-.78a.75.75 0 0 1 1.06 0l2 2a.75.75 0 1 1-1.06 1.06l-.72-.72V14a.75.75 0 0 1-1.5 0v-3.44l-.72.72a.75.75 0 1 1-1.06-1.06l2-2Z" clip-rule="evenodd" />
+                            </svg>
+                            <span>
+                <strong class="font-semibold text-gray-900 dark:text-white">Friedrich-Schiller-Universität Jena · MEPHisto</strong><br />
+                <span class="text-sm">Projektleitung: Prof. Dr. Clemens Beckstein · Apl. Prof. Dr. Robert Gramsch-Stehfest</span><br />
+                Methodische Führung in <em>Modellierung</em>, <em>Erklärung</em> und <em>Prozessen</em> historischer Wissenschaften – von
+                der semantischen Erschließung bis zur orchestrierten Workflow-Integration.
+              </span>
+                        </li>
+
+                        <!-- Germania Sacra -->
+                        <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 2a4 4 0 0 0-4 4v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-1V6a4 4 0 0 0-4-4Zm2 6V6a2 2 0 1 0-4 0v2h4Z" clip-rule="evenodd" />
+                            </svg>
+                            <span>
+                <strong class="font-semibold text-gray-900 dark:text-white">Germania Sacra · Niedersächsische Akademie der Wissenschaften zu Göttingen</strong><br />
+                <span class="text-sm">Prof. Dr. Hedwig Röckelein · Bärbel Kröger, M.A. · Dr. Christian Popp</span><br />
+                Fachliche Kuratierung, Editions-Expertise und Qualitätsstandards für historische Quellenkorpora.
+              </span>
+                        </li>
+
+                        <!-- DHI Rom -->
+                        <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M2 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4A2 2 0 0 1 2 7V5Z" />
+                                <path d="M2 13a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2Z" />
+                                <circle cx="6" cy="6" r="1" />
+                                <circle cx="6" cy="14" r="1" />
+                            </svg>
+                            <span>
+                <strong class="font-semibold text-gray-900 dark:text-white">Deutsches Historisches Institut in Rom · Repertorium Germanicum</strong><br />
+                <span class="text-sm">Prof. Dr. Martin Baumeister · Dr. Jörg Hörnschemeyer</span><br />
+                Leitender Anwendungsfall <em>Repertorium Germanicum</em>: Praxisnahe Validierung und Zugang zu zentralen Quellen der
+                spätmittelalterlichen Kirchengeschichte.
+              </span>
+                        </li>
+
+                        <!-- Forschungszentrum Gotha -->
+                        <li class="flex gap-x-3">
+                            <svg class="mt-1 size-5 flex-none text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M2.75 5A2.75 2.75 0 0 1 5.5 2.25h9A2.75 2.75 0 0 1 17.25 5v10A2.75 2.75 0 0 1 14.5 17.75h-9A2.75 2.75 0 0 1 2.75 15V5Zm3.5 1.5a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5h-7.5ZM6.5 10a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5H6.5Zm0 3a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5h-5Z" clip-rule="evenodd" />
+                            </svg>
+                            <span>
+                <strong class="font-semibold text-gray-900 dark:text-white">Forschungszentrum Gotha der Universität Erfurt · FactGrid</strong><br />
+                <span class="text-sm">Prof. Dr. Martin Mulsow · Dr. Olaf Simons</span><br />
+                Betrieb und Weiterentwicklung von <em>FactGrid</em> / Wikibase-Technologie als domänenspezifischer Datenspeicher
+                für kollaborative Erschließung und Abfrage.
+              </span>
+                        </li>
+                    </ul>
+
+                    <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kontakt &amp; Mitmachen</h2>
+                    <p class="mt-6">
+                        Fragen, Kooperationen oder Fallstudien? Besuche unsere
+                        <a class="font-medium text-purple-600 underline decoration-purple-200 underline-offset-2 hover:text-purple-700 dark:text-purple-400 dark:decoration-purple-900" href="/contact">schreib' uns</a>
+                        oder eröffne ein
+                        <a class="font-medium text-purple-600 underline decoration-purple-200 underline-offset-2 hover:text-purple-700 dark:text-purple-400 dark:decoration-purple-900" href="https://github.com/HisQu/Organisation/issues" target="_blank" rel="noreferrer">Issue</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

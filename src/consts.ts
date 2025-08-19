@@ -4,6 +4,8 @@
 export const SiteTitle = 'HisQu';
 export const SiteDescription = 'e-Research Project';
 export const GitHubLink = 'https://github.com/HisQu';
+export const MatrixLink = 'https://matrix.to/#/!PcrBuOrnEqLlUmmMNv:uni-goettingen.de?via=uni-goettingen.de&via=uni-jena.de&via=matrix.org';
+export const GitHubIssuesLink = "https://github.com/HisQu/Organisation/issues";
 
 
 import {
