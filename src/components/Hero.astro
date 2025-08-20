@@ -9,21 +9,21 @@ type Step = { key: string; label: string; description: string; angle: number; to
 const steps: Step[] = [
     {
         key: 'creation',
-        label: '1. Creation',
-        description: 'Digitisation of historical sources',
+        label: '1. Erstellung',
+        description: 'Digitalisierung historischer Ressourcen',
         angle: -90,
         tools: [{name: 'Romana Repertoria Online', status: 'ready', href: "http://www.romana-repertoria.net/993.html"}],
     },
     {
         key: 'modelling',
-        label: '2. Modelling',
+        label: '2. Modellierung',
         description: 'A key aspect of the development: The Ontology',
         angle: -25,
         tools: [{name: 'Ontology Pipeline Assistant', href: '/tools/opa', status: 'ready'}],
     },
     {
         key: 'processing',
-        label: '3. Processing',
+        label: '3. Verarbeitung',
         description: 'Data extraction · LLM API connection',
         angle: 25,
         tools: [
@@ -32,21 +32,23 @@ const steps: Step[] = [
     },
     {
         key: 'analysis',
-        label: '4. Analysis',
+        label: '4. Analyse',
         description: 'AI-supported SPARQL endpoint',
         angle: 90,
         tools: [{name: 'Query by Graph', href: '/tools/quebyg', status: 'ready'}],
     },
     {
         key: 'archiving',
-        label: '5. Archiving',
+        label: '5. Archivierung',
         description: 'Linked Open Data via Wikibase / FactGrid',
         angle: 155,
-        tools: [{name: 'FactGrid', href: 'https://database.factgrid.de/', status: 'ready'}],
+        tools: [
+            {name: 'FactGrid', href: 'https://database.factgrid.de/', status: 'ready'},
+        ],
     },
     {
         key: 'reuse',
-        label: '6. Use',
+        label: '6. Nachnutzung',
         description: 'Documentation framework for research processes',
         angle: 205,
         tools: [{name: 'Doku framework', status: 'wip'}],
@@ -56,10 +58,11 @@ const steps: Step[] = [
 
 <section class="hero">
     <div>
-        <h1>FAIR-by-design research infrastructure</h1>
+        <h1>
+            Ein Forschungsprozess ohne Unterbrechungen
+        </h1>
         <p class="dark:text-gray-100">
-            One iterative workflow &mdash; from creation to reuse.
-            marked as work-in-progress.
+            Die Problemlösung von Clemens
         </p>
         <div class="cta">
             <a href="/tools" class="btn primary">The Toolchain</a>
@@ -68,10 +71,10 @@ const steps: Step[] = [
     </div>
 
     <!-- Diagram -->
-    <div class="diagram" aria-label="Iterative research workflow">
+    <div class="diagram" aria-label="Der allgemeine iterative Forschungsprozess">
         <div class="ring" aria-hidden="true"></div>
         <div class="center">
-            Iterative Process
+            Iterativer Prozess
 
             <!-- circular arrow overlay -->
             <svg class="reload" viewBox="0 0 100 100" aria-hidden="true">

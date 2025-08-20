@@ -1,5 +1,30 @@
 # HisQu Landing Page
 
+## Besprechung vom 20.8.2025
+
+- Funded by DFG logo statt dem allgemeinen Logo verwenden
+- Website auf Deutsch und Englisch (wir sollten die deutsche Sprache vorsehen); nur für die statischen Inhalte eine manuelle Übersetzung, für die Blogeinträge schreibt man dann Deutsch
+- Nico: Wir sollten das RG (im Hero?) platzieren, damit ein Historiker sich vorstellen kann, woran wir arbeiten.
+- Nico und Clemens: Jeden einzelnen Arbeitsschritt in einer Sektion abbilden mit einer Graphik
+- Nico: Mehr Projektbezug im Hero. Der iterative Zyklus ist zu generisch
+
+- Nico: Warum haben wir eigentlich der Projektzuschlag bekommen? Das sollte an erster Stelle stehen.
+  - Die Chefs könnten dazu eine Meinung abgeben.
+  - Aber aus meiner Sicht: Wir haben eine Digitalisierung des RGs gemacht (super) und auch einen ununterbrochenen Zyklus 
+    entwickelt
+  - Die Website aus zwei Teilen: Einmal Zyklus und einmal die geschichtlichen Erkenntnisse.
+
+Prozessrad im Hero:
+- Nico: man könnte die Schritte mit einem Klick als Sprung zu einer darunterliegenden Sektion zu kommen
+- Luca: Es ist praktisch diese Links irgendwie zu haben
+
+- Daniel: Man platziert das Scroll Wheel rechts kleiner und hebt die einzelnen Schritte hervor, wenn man scrollt
+- Nico: Die Kacheln könnte man mit einer charakteristischen Farbe versehen. 
+
+- Nico: Der RG Bezug sollte bestehen bleiben.
+----------------------------
+
+
 > **:information_source: Note:**  
 > This README.md is a template.  
 > All sections and texts written in square brackets (e.g., `[your text here]`) are placeholders.  

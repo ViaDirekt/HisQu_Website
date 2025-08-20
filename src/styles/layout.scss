@@ -416,12 +416,12 @@ footer {
 	pointer-events: none;
 
 	--horizontal-stretch: 0.15;
-	--stretch-factor: calc(1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
+	--stretch-factor: calc(1.1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
 }
 
 .node > .step {
 	--horizontal-stretch: 0.15; /* Pushes nodes at 0/180deg out by 15%. Set to 0 for a perfect circle. */
-	--stretch-factor: calc(1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
+	--stretch-factor: calc(1.1 + var(--horizontal-stretch) * cos(var(--angle)) * cos(var(--angle)));
 
 	position: absolute;
 	/* Place the card at the ring’s centerline using polar coords, applying the stretch factor */
@@ -476,7 +476,7 @@ footer {
 
 	min-width: 220px;
 	max-width: 280px;
-	background: #0f1016;
+	background: white;
 	border: 1px solid #2b2e3a;
 	border-radius: .75rem;
 	padding: .75rem;
@@ -485,6 +485,9 @@ footer {
 	pointer-events: none;
 	transition: opacity .18s ease;
 	z-index: 3;
+	@media (prefers-color-scheme: dark) {
+		background: #0f1016;
+	}
 }
 
 .node:has(> .step:hover) .popover,

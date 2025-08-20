@@ -20,8 +20,8 @@ const isLocal = (src: string) => !/^https?:\/\//.test(src);
                                                 <picture>
                                                     {p.srcDark &&
                                                             <source srcset={p.srcDark} media="(prefers-color-scheme: dark)"/>}
-                                                    <img
-                                                            class="max-h-12 w-full object-contain"
+                                                    <Image
+                                                            class="max-h-16 w-full object-contain"
                                                             src={p.srcLight}
                                                             alt={p.name}
                                                             width={p.width ?? 158}
@@ -35,7 +35,7 @@ const isLocal = (src: string) => !/^https?:\/\//.test(src);
                                         // Lokale Quellen: Image.astro (optimiert)
 
                                                 <Image
-                                                        class="max-h-12 w-full object-contain"
+                                                        class="max-h-16 w-full object-contain"
                                                         src={p.srcLight}
                                                         alt={p.name}
                                                         width={p.width ?? 158}
