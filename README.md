@@ -22,6 +22,21 @@ Prozessrad im Hero:
 - Nico: Die Kacheln könnte man mit einer charakteristischen Farbe versehen. 
 
 - Nico: Der RG Bezug sollte bestehen bleiben.
+
+- Nico: 
+  - Partner auf eine Extraseite
+  - Die Partner nur mit Icons unter dem Hero
+  - DFG Logo im Footer oder unter den Partnern
+
+- Luca:
+  - Teamübersicht mit Fotos
+  - Teamübersicht muss in Markdown beschreibbar sein können.
+
+- Daniel:
+  - Ohne Zuarbeit kann ich das inhaltlich nicht füllen
+
+- Clemens:
+  - Schreibt Entwurfstexte für die Website (3 Sätze)
 ----------------------------
 
 
