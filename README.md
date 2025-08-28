@@ -18,7 +18,7 @@ Prozessrad im Hero:
 - [ ] Nico: man könnte die Schritte mit einem Klick als Sprung zu einer darunterliegenden Sektion zu kommen
 - [ ] Luca: Es ist praktisch diese Links irgendwie zu haben
 
-- [ ]  Daniel: Man platziert das Scroll Wheel rechts kleiner und hebt die einzelnen Schritte hervor, wenn man scrollt
+- [ ] Daniel: Man platziert das Scroll Wheel rechts kleiner und hebt die einzelnen Schritte hervor, wenn man scrollt
 - [ ] Nico: Die Kacheln könnte man mit einer charakteristischen Farbe versehen. 
 
 - [x] Nico: Der RG Bezug sollte bestehen bleiben.
@@ -37,7 +37,7 @@ Prozessrad im Hero:
 - Clemens:
   - [x] Schreibt Entwurfstexte für die Website (3 Sätze)
   - [ ] Meet the team unter "Meet the partners" als Button platzieren mit Link auf eine neue Seite. Mit Verknüpfung zu den Publikationen etc.
-  - [ ] Echte Seite aus dem RG verwenden in der [Cloud](https://cloud.uni-jena.de/apps/files/files/143821246?dir=/core-h/HisQu/Projekte/OCR%20mit%20LLM/Schwer%20%28RG%20Register%20Handschriften%29/CD1/RVAT17)
+  - [ ] Echte Seite aus dem RG verwenden und _zuschneiden_ in der [Cloud](https://cloud.uni-jena.de/apps/files/files/143821246?dir=/core-h/HisQu/Projekte/OCR%20mit%20LLM/Schwer%20%28RG%20Register%20Handschriften%29/CD1/RVAT17)
   - [ ] DFG Logo unter den Hero platzieren als Unterschrift (Fördernummer: DFG - LIS e-Research Projekt-Technologien - Projekt 532400971 - ab Januar 2025)
 
 
