@@ -14,26 +14,26 @@ import {
     dfgLogoSvg,
     gsLogo,
     mephisto03,
-    mephisto04,
 } from "./assets";
+
+import type { ImageMetadata } from 'astro';
+
+type Img = string | ImageMetadata;
 
 export type Partner = {
     key: string;
-    unit: string;
-    institution: string;
     name: string;
+    unit?: string;
+    institution?: string;
     alt?: string;
     width?: number;
     height?: number;
-    // lokale oder externe Quellen – jeweils für Light/Dark
-    srcLight: object;
-    srcDark?: object;
-    // optionale Tailwind-Klassen pro Item
+    srcLight: Img;        // ← fix
+    srcDark?: Img;        // ← fix
     className?: string;
-    // optionaler Link
     href?: string;
-    leads?: {name: string, title: string}[];
-    summary: string;
+    leads?: { name: string; title: string }[];
+    summary?: string;
 };
 
 export const partners: Partner[] = [
@@ -106,11 +106,11 @@ export const partners: Partner[] = [
 ];
 
 export interface Step {
-    title: string
-    subtitle: string
-    description: string
-    image: { src: string; alt?: string }
-    caption?: string
+    title: string;
+    subtitle: string;
+    description: string;
+    image: { src: Img; alt?: string };  // ← string | ImageMetadata
+    caption?: string;
 }
 
 type RgPoint = { title: string; text: string }
@@ -133,6 +133,7 @@ export interface Props {
 
 
 export const dfg: Partner = {
+    key: "dfg",
     name: "Deutsche Forschungsgemeinschaft",
     srcLight: dfgLogoSvg,
     srcDark: dfgLogoSvg, // gleiches Asset in Dark erlaubt
