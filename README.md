@@ -24,7 +24,6 @@ Prozessrad im Hero:
 - [x] Nico: Der RG Bezug sollte bestehen bleiben.
 
 - Nico: 
-  - [ ] Partner auf eine Extraseite
   - [ ] Die Partner nur mit Icons unter dem Hero
   - [ ] DFG Logo im Footer oder unter den Partnern
 
@@ -37,6 +36,11 @@ Prozessrad im Hero:
 
 - Clemens:
   - [x] Schreibt Entwurfstexte für die Website (3 Sätze)
+  - [ ] Meet the team unter "Meet the partners" als Button platzieren mit Link auf eine neue Seite. Mit Verknüpfung zu den Publikationen etc.
+  - [ ] Echte Seite aus dem RG verwenden in der [Cloud](https://cloud.uni-jena.de/apps/files/files/143821246?dir=/core-h/HisQu/Projekte/OCR%20mit%20LLM/Schwer%20%28RG%20Register%20Handschriften%29/CD1/RVAT17)
+  - [ ] DFG Logo unter den Hero platzieren als Unterschrift (Fördernummer: DFG - LIS e-Research Projekt-Technologien - Projekt 532400971 - ab Januar 2025)
+
+
 ----------------------------
 
 
