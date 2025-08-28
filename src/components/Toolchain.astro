@@ -7,38 +7,60 @@ const steps: Step[] = [
         title: "Erstellung",
         subtitle: "Digitalisierung historischer Ressourcen",
         description: `HisQu zielt darauf ab, die Digitalisierung gedruckter historischer Quellen mit anspruchsvollen Layouts – etwa Frakturschriften oder komplexen Spaltenstrukturen – deutlich zu verbessern. Dafür erweitern wir klassische OCR-Tools wie Tesseract durch den Einsatz von LLMs: Diese übernehmen die Vorverarbeitung der Quellen mithilfe von Bounding Boxes und ermöglichen zugleich eine nachträgliche Korrektur der Ergebnisse.`,
-        image: {src: erstellung, alt: "Visualisierung der Digitalisierung historischer Quellen"},
+        image: { src: erstellung, alt: "Visualisierung der Digitalisierung historischer Quellen" },
+        tools: [
+            { name: "RAG Online", href: "/tools/scan-prep" },
+        ],
     },
     {
         title: "Modellierung",
         subtitle: "Zentrales Element: Die Ontologie",
-        description: `Die konsequente Digitalisierung geschichtswissenschaftlicher Forschungsprozesse erfordert domänenspezifische Vokabulare. Nur so lassen sich Quellen und Forschungsaussagen semantisch erfassen und interoperabel machen. HisQu setzt hierfür auf Wissensgraphen, die sowohl die Ontologie als auch die damit formulierten inhaltlichen Aussagen gleichberechtigt abbilden. Grundlage dafür ist die Arbeit mit Protégé.`,
-        image: {src: ontologie, alt: "Darstellung einer Ontologie-Modellierung"},
+        description: `Die konsequente Digitalisierung geschichtswissenschaftlicher Forschungsprozesse erfordert domänenspezifische Vokabulare. Nur so lassen sich Quellen und Forschungsaussagen semantisch erfassen und interoperabel machen. HisQu setzt hierfür auf Wissensgraphen, die sowohl die Ontologie als auch die damit formulierten inhaltlichen Aussagen gleichberechtigt abbilden. Dieses Modell schafft Flexibilität für die digitale Modellierung und die Weiterentwicklung fachlicher Expertise. Grundlage dafür ist die Arbeit mit Protégé.`,
+        image: { src: ontologie, alt: "Darstellung einer Ontologie-Modellierung" },
+        tools: [
+            { name: "Protégé Online", href: "/tools/protege-profile" },
+            { name: "RG Guidelines", href: "/tools/rg-guidelines", image: { src: ontologie, alt: "RG" } },
+        ],
     },
     {
         title: "Verarbeitung",
         subtitle: "Einbindung von Large Language Models",
         description: `Für die Datenverarbeitung entwickelt HisQu innovative Tools auf Basis von LLMs. Mit Paredros steht Historiker:innen eine Grammatikentwicklungsumgebung zur Verfügung, die bei der Formulierung von Grammatiken zur Auswertung von Quellen unterstützt. Ergänzend entsteht mit OPA (Ontology Parser Assistant) ein Python-basierter LLM-Client, mit dem Ontologie-Snippets erstellt und flexibel erweitert werden – eine Grundlage für die semantische Modellierung und Weiterentwicklung domänenspezifischen Wissens.`,
-        image: {src: verarbeitung, alt: "Workflow mit LLM-basierten Tools"},
+        image: { src: verarbeitung, alt: "Workflow mit LLM-basierten Tools" },
+        tools: [
+            { name: "Paredros", href: "/tools/paredros" },
+            { name: "OPA", href: "/tools/opa" },
+        ],
     },
     {
         title: "Analyse",
         subtitle: "KI-unterstütztes SPARQL-Endpoint",
         description: `Um den Zugang zu komplexen SPARQL-Abfragen zu erleichtern, entwickelt HisQu einen grafischen Query-Builder. Dieser ermöglicht es, Abfragen intuitiv zusammenzustellen und zugleich den generierten SPARQL-Code einzusehen. Perspektivisch wird zudem eine Anbindung an ein LLM integriert, um die Erstellung und Anpassung von Abfragen noch benutzerfreundlicher zu gestalten.`,
-        image: {src: analyse, alt: "Beispiel einer grafischen SPARQL-Abfrage"},
-        caption: "Abfrage zu allen Klerikern mit Ortsbezug zur Diözese Mainz – oben grafische Oberfläche, unten generierter SPARQL-Code.",
+        image: { src: analyse, alt: "Beispiel einer grafischen SPARQL-Abfrage" },
+        caption: "Beispiel einer Abfrage zu allen Klerikern mit Ortsbezug zur Diözese Mainz – oben erfolgt der Aufbau über die grafische Oberfläche, unten die Ausgabe des entsprechenden SPARQL-Codes.",
+        tools: [
+            { name: "Query by Graph", href: "/tools/quebyg" }, // ← your example
+            { name: "SPARQL Playground", href: "/tools/sparql-playground" },
+        ],
     },
     {
         title: "Archivierung",
         subtitle: "Linked Open Data mit FactGrid/Wikibase",
         description: `Für die Speicherung der Daten nutzt HisQu FactGrid, eine speziell auf die Bedürfnisse der Geschichtswissenschaft zugeschnittene Wikibase-Instanz. Sie ermöglicht kollaboratives und nachvollziehbares Arbeiten mit Klarnamen. Alle aktiven Mitwirkenden erhalten personalisierte Konten, die eindeutig über ORCID-IDs verknüpft sind. Auf diese Weise entstehen zitierfähige (Mikro-)Publikationen, die die Sichtbarkeit und Akzeptanz von HisQu in der wissenschaftlichen Community stärken.`,
-        image: {src: archiv, alt: "FactGrid-Oberfläche für kollaborative Archivierung"},
+        image: { src: archiv, alt: "FactGrid-Oberfläche" },
+        tools: [{ name: "FactGrid Console", href: "/tools/factgrid-console" }],
     },
     {
         title: "Nachvollziehbarkeit",
         subtitle: "Dokumentationsframework für den Forschungsprozess",
-        description: `HisQu entwickelt ein interaktives Labortagebuch, das historische Forschungsprozesse transparent und reproduzierbar macht. Dafür werden abstrakte Dokumentationsbausteine wie Datenerhebung, -auswertung oder Visualisierung definiert und in einer graphischen Oberfläche zu konkreten Workflows zusammengesetzt. Ein visueller Editor bildet die einzelnen Schritte samt Abhängigkeiten ab und ermöglicht ihre Verwaltung mit zeitgemäßen Werkzeugen wie Git-Integration und automatisch generiertem Wiki.`,
-        image: {src: nachvollziehbarkeit, alt: "Visueller Workflow-Editor für Dokumentation"},
+        description: `isQu entwickelt ein interaktives Labortagebuch, das historische Forschungsprozesse transparent und reproduzierbar macht. Dafür werden abstrakte Dokumentationsbausteine wie Datenerhebung, -auswertung oder Visualisierung definiert und in einer graphischen Oberfläche zu konkreten Workflows zusammengesetzt.
+
+Ein visueller Editor bildet die einzelnen Schritte samt Abhängigkeiten ab und ermöglicht ihre Verwaltung mit zeitgemäßen Werkzeugen wie Git-Integration und automatisch generiertem Wiki.`,
+        image: { src: nachvollziehbarkeit, alt: "Visueller Workflow-Editor" },
+        tools: [
+            { name: "Lab Notebook", href: "/tools/lab-notebook" },
+            { name: "Git Integrator", href: "/tools/git-integrator" },
+        ],
     },
 ];
 
@@ -134,28 +156,62 @@ const {
             </div>
         </div>
 
-        <!-- Prozess-Schritte -->
-        <div class="mt-24 space-y-32">
+        <!-- Prozess-Schritte (Astro-kompatibel, konsistente Einrückung & Buttons) -->
+        <div class="mt-24 space-y-24">
             {steps.map((step, i) => (
-                    <div class={`mx-auto max-w-6xl lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8 ${i % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
-                        <div class="sm:mx-auto sm:max-w-2xl lg:col-span-6">
+                    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-y-10 gap-x-8 lg:grid-cols-12">
+                        <!-- Text-Spalte -->
+                        <div class={`lg:col-span-6 ${i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
                             <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{i + 1}. {step.title}</h2>
-                            <h4 class="mt-2 text-lg font-medium text-purple-600 dark:text-purple-400">{step.subtitle}</h4>
+                            <span class="mt-2 text-xl font-medium text-purple-600 dark:text-purple-400">{step.subtitle}</span>
                             <p class="mt-4 text-base text-gray-600 dark:text-gray-300">{step.description}</p>
+
+                            {step.tools && step.tools.length > 0 && (
+                                    <div class="mt-6 flex flex-wrap gap-3">
+                                        {step.tools.map((tool) => (
+                                                <a
+                                                        href={tool.href}
+                                                        class="group inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm ring-1 ring-inset ring-gray-900/5 hover:shadow-md hover:ring-gray-900/10 dark:border-white/10 dark:text-gray-200 dark:ring-white/10"
+                                                        aria-label={`Öffne Tool: ${tool.name}`}
+                                                >
+                                                    {tool.image?.src && (
+                                                            <Image
+                                                                    src={tool.image.src}
+                                                                    alt={tool.image.alt ?? ""}
+                                                                    width={24}
+                                                                    height={24}
+                                                                    class="h-6 w-6 rounded-md ring-1 ring-black/5 dark:ring-white/10"
+                                                                    loading="lazy"
+                                                            />
+                                                    )}
+                                                    <span class="relative">
+                  {tool.name}
+                                                        <span
+                                                                class="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-[var(--grad-from)] to-[var(--grad-to)] transition-all duration-200 group-hover:w-full"
+                                                                style={`--grad-from:${gradientFrom}; --grad-to:${gradientTo};`}
+                                                                aria-hidden="true"
+                                                        />
+                </span>
+                                                </a>
+                                        ))}
+                                    </div>
+                            )}
+                        </div>
+
+                        <!-- Bild-Spalte -->
+                        <div class={`lg:col-span-6 ${i % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                            <Image
+                                    src={step.image.src}
+                                    alt={step.image.alt ?? ""}
+                                    class="w-full rounded-xl shadow-lg ring-1 ring-gray-900/10 dark:ring-white/10 bg-white p-2"
+                                    loading="lazy"
+                            />
                             {step.caption && (
                                     <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 italic">{step.caption}</p>
                             )}
                         </div>
-                        <div class="mt-10 sm:mt-6 lg:mt-0 lg:col-span-6">
-                            <Image
-                                    src={step.image.src}
-                                    alt={step.image.alt ?? ""}
-                                    class="rounded-xl shadow-lg ring-1 ring-gray-900/10 dark:ring-white/10 bg-white p-2"
-                                    loading="lazy"
-                            />
-                        </div>
                     </div>
-            ))}
-        </div>
-    </div>
-</section>
+                ))}
+                </div>
+                </div>
+                </section>
