@@ -15,28 +15,28 @@
   - Die Website aus zwei Teilen: Einmal Zyklus und einmal die geschichtlichen Erkenntnisse.
 
 Prozessrad im Hero:
-- Nico: man könnte die Schritte mit einem Klick als Sprung zu einer darunterliegenden Sektion zu kommen
-- Luca: Es ist praktisch diese Links irgendwie zu haben
+- [ ] Nico: man könnte die Schritte mit einem Klick als Sprung zu einer darunterliegenden Sektion zu kommen
+- [ ] Luca: Es ist praktisch diese Links irgendwie zu haben
 
-- Daniel: Man platziert das Scroll Wheel rechts kleiner und hebt die einzelnen Schritte hervor, wenn man scrollt
-- Nico: Die Kacheln könnte man mit einer charakteristischen Farbe versehen. 
+- [ ]  Daniel: Man platziert das Scroll Wheel rechts kleiner und hebt die einzelnen Schritte hervor, wenn man scrollt
+- [ ] Nico: Die Kacheln könnte man mit einer charakteristischen Farbe versehen. 
 
-- Nico: Der RG Bezug sollte bestehen bleiben.
+- [x] Nico: Der RG Bezug sollte bestehen bleiben.
 
 - Nico: 
-  - Partner auf eine Extraseite
-  - Die Partner nur mit Icons unter dem Hero
-  - DFG Logo im Footer oder unter den Partnern
+  - [ ] Partner auf eine Extraseite
+  - [ ] Die Partner nur mit Icons unter dem Hero
+  - [ ] DFG Logo im Footer oder unter den Partnern
 
 - Luca:
-  - Teamübersicht mit Fotos
-  - Teamübersicht muss in Markdown beschreibbar sein können.
+  - [ ] Teamübersicht mit Fotos
+  - [ ] Teamübersicht muss in Markdown beschreibbar sein können.
 
 - Daniel:
-  - Ohne Zuarbeit kann ich das inhaltlich nicht füllen
+  - [x]  Ohne Zuarbeit kann ich das inhaltlich nicht füllen
 
 - Clemens:
-  - Schreibt Entwurfstexte für die Website (3 Sätze)
+  - [x] Schreibt Entwurfstexte für die Website (3 Sätze)
 ----------------------------
 
 

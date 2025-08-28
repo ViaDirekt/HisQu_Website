@@ -17,6 +17,7 @@ import gsLogo from "./partners/gs.png";
 import mephisto03 from "./partners/mephisto-03.png";
 import mephisto04 from "./partners/mephisto-04.png";
 
+import rg from "./tools/rg.jpg";
 import analyse from "./tools/analyse.png";
 import archiv from "./tools/archiv.png";
 import erstellung from "./tools/erstellung.png";
@@ -43,6 +44,7 @@ export {
     mephisto04,
 
     // tools
+    rg,
     analyse,
     archiv,
     erstellung,
