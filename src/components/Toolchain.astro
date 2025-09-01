@@ -1,75 +1,14 @@
 ---
 import Image from 'astro/components/Image.astro';
 import {analyse, archiv, erstellung, nachvollziehbarkeit, ontologie, rg, verarbeitung} from "../assets";
-
-const steps: Step[] = [
-    {
-        title: "Erstellung",
-        subtitle: "Digitalisierung historischer Ressourcen",
-        description: `HisQu zielt darauf ab, die Digitalisierung gedruckter historischer Quellen mit anspruchsvollen Layouts – etwa Frakturschriften oder komplexen Spaltenstrukturen – deutlich zu verbessern. Dafür erweitern wir klassische OCR-Tools wie Tesseract durch den Einsatz von LLMs: Diese übernehmen die Vorverarbeitung der Quellen mithilfe von Bounding Boxes und ermöglichen zugleich eine nachträgliche Korrektur der Ergebnisse.`,
-        image: { src: erstellung, alt: "Visualisierung der Digitalisierung historischer Quellen" },
-        tools: [
-            { name: "RAG Online", href: "/tools/scan-prep" },
-        ],
-    },
-    {
-        title: "Modellierung",
-        subtitle: "Zentrales Element: Die Ontologie",
-        description: `Die konsequente Digitalisierung geschichtswissenschaftlicher Forschungsprozesse erfordert domänenspezifische Vokabulare. Nur so lassen sich Quellen und Forschungsaussagen semantisch erfassen und interoperabel machen. HisQu setzt hierfür auf Wissensgraphen, die sowohl die Ontologie als auch die damit formulierten inhaltlichen Aussagen gleichberechtigt abbilden. Dieses Modell schafft Flexibilität für die digitale Modellierung und die Weiterentwicklung fachlicher Expertise. Grundlage dafür ist die Arbeit mit Protégé.`,
-        image: { src: ontologie, alt: "Darstellung einer Ontologie-Modellierung" },
-        tools: [
-            { name: "Protégé Online", href: "/tools/protege-profile" },
-            { name: "RG Guidelines", href: "/tools/rg-guidelines", image: { src: ontologie, alt: "RG" } },
-        ],
-    },
-    {
-        title: "Verarbeitung",
-        subtitle: "Einbindung von Large Language Models",
-        description: `Für die Datenverarbeitung entwickelt HisQu innovative Tools auf Basis von LLMs. Mit Paredros steht Historiker:innen eine Grammatikentwicklungsumgebung zur Verfügung, die bei der Formulierung von Grammatiken zur Auswertung von Quellen unterstützt. Ergänzend entsteht mit OPA (Ontology Parser Assistant) ein Python-basierter LLM-Client, mit dem Ontologie-Snippets erstellt und flexibel erweitert werden – eine Grundlage für die semantische Modellierung und Weiterentwicklung domänenspezifischen Wissens.`,
-        image: { src: verarbeitung, alt: "Workflow mit LLM-basierten Tools" },
-        tools: [
-            { name: "Paredros", href: "/tools/paredros" },
-            { name: "OPA", href: "/tools/opa" },
-        ],
-    },
-    {
-        title: "Analyse",
-        subtitle: "KI-unterstütztes SPARQL-Endpoint",
-        description: `Um den Zugang zu komplexen SPARQL-Abfragen zu erleichtern, entwickelt HisQu einen grafischen Query-Builder. Dieser ermöglicht es, Abfragen intuitiv zusammenzustellen und zugleich den generierten SPARQL-Code einzusehen. Perspektivisch wird zudem eine Anbindung an ein LLM integriert, um die Erstellung und Anpassung von Abfragen noch benutzerfreundlicher zu gestalten.`,
-        image: { src: analyse, alt: "Beispiel einer grafischen SPARQL-Abfrage" },
-        caption: "Beispiel einer Abfrage zu allen Klerikern mit Ortsbezug zur Diözese Mainz – oben erfolgt der Aufbau über die grafische Oberfläche, unten die Ausgabe des entsprechenden SPARQL-Codes.",
-        tools: [
-            { name: "Query by Graph", href: "/tools/quebyg" }, // ← your example
-            { name: "SPARQL Playground", href: "/tools/sparql-playground" },
-        ],
-    },
-    {
-        title: "Archivierung",
-        subtitle: "Linked Open Data mit FactGrid/Wikibase",
-        description: `Für die Speicherung der Daten nutzt HisQu FactGrid, eine speziell auf die Bedürfnisse der Geschichtswissenschaft zugeschnittene Wikibase-Instanz. Sie ermöglicht kollaboratives und nachvollziehbares Arbeiten mit Klarnamen. Alle aktiven Mitwirkenden erhalten personalisierte Konten, die eindeutig über ORCID-IDs verknüpft sind. Auf diese Weise entstehen zitierfähige (Mikro-)Publikationen, die die Sichtbarkeit und Akzeptanz von HisQu in der wissenschaftlichen Community stärken.`,
-        image: { src: archiv, alt: "FactGrid-Oberfläche" },
-        tools: [{ name: "FactGrid Console", href: "/tools/factgrid-console" }],
-    },
-    {
-        title: "Nachvollziehbarkeit",
-        subtitle: "Dokumentationsframework für den Forschungsprozess",
-        description: `isQu entwickelt ein interaktives Labortagebuch, das historische Forschungsprozesse transparent und reproduzierbar macht. Dafür werden abstrakte Dokumentationsbausteine wie Datenerhebung, -auswertung oder Visualisierung definiert und in einer graphischen Oberfläche zu konkreten Workflows zusammengesetzt.
-
-Ein visueller Editor bildet die einzelnen Schritte samt Abhängigkeiten ab und ermöglicht ihre Verwaltung mit zeitgemäßen Werkzeugen wie Git-Integration und automatisch generiertem Wiki.`,
-        image: { src: nachvollziehbarkeit, alt: "Visueller Workflow-Editor" },
-        tools: [
-            { name: "Lab Notebook", href: "/tools/lab-notebook" },
-            { name: "Git Integrator", href: "/tools/git-integrator" },
-        ],
-    },
-];
+import {steps} from "../consts";
 
 const {
     title = "Ein Forschungsprozess ohne Unterbrechungen nach den FAIR-Prinzipien",
     description = "In den digitalen Geisteswissenschaften dominieren bislang digitale Editionen und punktuelle „Insel-Lösungen“ – Tools und Skripte, die nur für ein spezifisches Forschungsproblem entwickelt wurden. Ein geschlossener digitaler Forschungsdatenzyklus fehlt, wodurch Nachvollziehbarkeit, Reproduzierbarkeit und nachhaltige Archivierung oft nicht gewährleistet sind. HisQu setzt hier an und entwickelt eine fachspezifische Lösung, die historische Quellen und Forschungsprozesse gezielt digital unterstützt und den Forschungsworkflow nahtlos zusammenführt.",
     eyebrow = "Ein lückenloser Prozess",
 
-    rgTitle = "Die Quelle: Das Repertorium Germanicum",
+    rgTitle = `Die Quelle: Das Repertorium Germanicum`,
     rgDescription = "Kurze Erläuterung des RG-Konzepts. Beschreibe hier prägnant, wofür RG steht und welchen Mehrwert es im HisQu-Workflow liefert.",
     rgImage = {src: rg, alt: "Illustration"},
     rgPoints = [
@@ -84,7 +23,7 @@ const {
 } = Astro.props as Props;
 ---
 
-<section class={`relative isolate ${outerClass}`} aria-label={title}>
+<section class={`relative isolate ${outerClass}`} aria-label={title} id="toolchain">
     <!-- Hintergrund-Deko -->
     <div class="absolute top-0 right-0 left-1/2 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
          aria-hidden="true">
@@ -162,7 +101,7 @@ const {
                     <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-y-10 gap-x-8 lg:grid-cols-12">
                         <!-- Text-Spalte -->
                         <div class={`lg:col-span-6 ${i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
-                            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{i + 1}. {step.title}</h2>
+                            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{step.title}</h2>
                             <span class="mt-2 text-xl font-medium text-purple-600 dark:text-purple-400">{step.subtitle}</span>
                             <p class="mt-4 text-base text-gray-600 dark:text-gray-300">{step.description}</p>
 
@@ -211,7 +150,7 @@ const {
                             )}
                         </div>
                     </div>
-                ))}
-                </div>
-                </div>
-                </section>
+            ))}
+        </div>
+    </div>
+</section>

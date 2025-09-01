@@ -1,12 +1,9 @@
 // index.ts
 
 // root-level images
-import astro from "./astro.svg";
 import background from "./background.svg";
-import forschungsdatenzyklus from "./forschungsdatenzyklus.drawio.png";
 import imageWebp from "./dhd-vienna.webp";
 import logo from "./logo.png";
-import starlogPlaceholder from "./starlog-placeholder-2.jpg";
 import team from "./team.jpg";
 
 // partner logos
@@ -27,12 +24,9 @@ import verarbeitung from "./tools/verarbeitung.png";
 
 export {
     // root
-    astro,
     background,
-    forschungsdatenzyklus,
     imageWebp,
     logo,
-    starlogPlaceholder,
     team,
 
     // partners

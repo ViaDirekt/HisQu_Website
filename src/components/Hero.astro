@@ -1,59 +1,5 @@
 ---
-// src/components/Hero.astro
-// Update the steps/tools below.  status: 'ready' | 'wip'
-
-import {GitHubLink} from "../consts";
-type Tool = { name: string; href?: string; status?: 'ready' | 'wip'; note?: string };
-type Step = { key: string; label: string; description: string; angle: number; tools: Tool[] };
-
-const steps: Step[] = [
-    {
-        key: 'creation',
-        label: '1. Erstellung',
-        description: 'Digitalisierung historischer Ressourcen',
-        angle: -90,
-        tools: [{name: 'Romana Repertoria Online', status: 'ready', href: "http://www.romana-repertoria.net/993.html"}],
-    },
-    {
-        key: 'modelling',
-        label: '2. Modellierung',
-        description: 'A key aspect of the development: The Ontology',
-        angle: -25,
-        tools: [{name: 'Ontology Pipeline Assistant', href: '/tools/opa', status: 'ready'}],
-    },
-    {
-        key: 'processing',
-        label: '3. Verarbeitung',
-        description: 'Data extraction · LLM API connection',
-        angle: 25,
-        tools: [
-            {name: 'Paredros', href: '/tools/paredros', status: 'ready'},
-        ],
-    },
-    {
-        key: 'analysis',
-        label: '4. Analyse',
-        description: 'AI-supported SPARQL endpoint',
-        angle: 90,
-        tools: [{name: 'Query by Graph', href: '/tools/quebyg', status: 'ready'}],
-    },
-    {
-        key: 'archiving',
-        label: '5. Archivierung',
-        description: 'Linked Open Data via Wikibase / FactGrid',
-        angle: 155,
-        tools: [
-            {name: 'FactGrid', href: 'https://database.factgrid.de/', status: 'ready'},
-        ],
-    },
-    {
-        key: 'reuse',
-        label: '6. Nachnutzung',
-        description: 'Documentation framework for research processes',
-        angle: 205,
-        tools: [{name: 'Doku framework', status: 'wip'}],
-    },
-];
+import {GitHubLink, steps} from "../consts";
 ---
 
 <section class="hero">
@@ -67,8 +13,8 @@ const steps: Step[] = [
             Forschungsprozess für historische Quellen digital zu unterstützen.
         </p>
         <div class="cta">
-            <a href="/tools" class="btn primary">The Toolchain</a>
-            <a target="_blank" href={GitHubLink} class="btn">Our GitHub</a>
+            <a href="#toolchain" class="btn primary">Die Toolchain</a>
+            <a target="_blank" href={GitHubLink} class="btn">Unser GitHub</a>
         </div>
     </div>
 
@@ -106,22 +52,9 @@ const steps: Step[] = [
             steps.map((s) => (
                     <div class="node" style={`--angle:${s.angle}deg`} data-key={s.key}>
                         <button class="step bg-white dark:bg-gray-800" aria-haspopup="true" aria-expanded="false">
-                            <span class="title">{s.label}</span>
-                            <span class="desc">{s.description}</span>
+                            <span class="title">{s.title}</span>
+                            <span class="desc">{s.subtitle}</span>
                         </button>
-                        <div class="popover" role="menu">
-                            <h3>{s.label} — Tools</h3>
-                            <ul>
-                                {s.tools.map((t) => (
-                                        <li class={t.status === 'wip' ? 'wip' : 'ready'}>
-                                            {t.href && t.status === 'ready'
-                                                ? <a href={t.href}>{t.name}</a>
-                                                : <span>{t.name}</span>}
-                                            {t.status === 'wip' && <em>WIP{t.note ? ` — ${t.note}` : ''}</em>}
-                                        </li>
-                                ))}
-                            </ul>
-                        </div>
                     </div>
             ))
         }
