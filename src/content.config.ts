@@ -1,6 +1,26 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const team = defineCollection({
+	loader: glob({ base: './src/content/team', pattern: '**/*.md' }),
+	schema: ({ image }) =>
+		z.object({
+			numerical_position: z.number().optional(), // for ordering team members
+			name: z.string(),
+			academic_title: z
+				.object({
+					prefix: z.string().optional(),
+					suffix: z.string().optional(),
+				})
+				.optional(),
+			description: z.string(),
+			position: z.string().optional(),
+			group: z.string(),
+			publications: z.array(z.string()).optional(),
+			image: image(),
+		}),
+});
+
 const blog = defineCollection({
 	// Load Markdown files in the src/content/blog directory.
 	loader: glob({ base: './src/content/blog', pattern: '**/*.md' }),
@@ -60,4 +80,4 @@ const events = defineCollection({
 		}),
 });
 
-export const collections = { blog, publications, events };
+export const collections = { blog, publications, events, team };

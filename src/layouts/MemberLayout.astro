@@ -1,0 +1,112 @@
+---
+import "../styles/tailwind.css";
+import "../styles/global.scss";
+
+import type {CollectionEntry} from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import {Image} from 'astro:assets';
+
+type Props = {
+    member: CollectionEntry<'team'>;
+};
+
+const {member} = Astro.props;
+
+// Build full display name from new schema fields
+const baseName = member.data.name;
+const prefix = member.data.academic_title?.prefix?.trim() || '';
+const suffix = member.data.academic_title?.suffix?.trim() || '';
+const displayName = [prefix, baseName].filter(Boolean).join(prefix ? ' ' : '') + (suffix ? ", " + suffix : '');
+
+const headTitle = `${displayName} — Team`;
+const headDescription = member.data.description;
+
+// Prepare SEO image only if valid; SEO expects ImageMetadata or string
+const seoImage = member.data.image;
+
+// Initials for placeholder avatar
+const initials = baseName
+    ? baseName
+            .split(',')[0]
+            .split(' ')
+            .map((part:string) => part[0])
+            .join('')
+            .toUpperCase()
+    : '?';
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+        <BaseHead
+            title={headTitle}
+            description={headDescription}
+            image={seoImage}
+        />
+</head>
+<body class="dark:bg-gray-900">
+<div class="glow"></div>
+<Header/>
+
+<div class="post single max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" transition:persist transition:name="post">
+    <!-- Profile -->
+    <article class="content mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Image -->
+        <div class="lg:col-span-4">
+                        {(() => {
+                              const img = member.data.image;
+                            if (img && typeof img === 'object' && 'src' in img) {
+                                return (
+                                    <div class="overflow-hidden rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800">
+                                        <Image
+                                            src={img}
+                                            alt={displayName}
+                                            sizes="(min-width: 1024px) 320px, 100vw"
+                                            loading="eager"
+                                        />
+                                    </div>
+                                );
+                            }
+                            return (
+                                <div class="aspect-3/2 w-full flex items-center justify-center rounded-2xl bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 text-3xl font-bold">
+                                    {initials}
+                                </div>
+                            );
+                        })()}
+        </div>
+
+        <!-- Text -->
+        <div class="lg:col-span-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                {displayName}
+            </h1>
+
+            <p class="mt-4 text-lg leading-7 text-gray-700 dark:text-gray-300">
+                {member.data.description}
+            </p>
+
+            <!-- Optional publications -->
+            {Array.isArray(member.data.publications) && member.data.publications.length > 0 && (
+                    <section class="mt-6">
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100">Publications</h2>
+                        <ul class="mt-2 list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-300">
+                            {member.data.publications.map((pub) => (
+                                    <li>{pub}</li>
+                            ))}
+                        </ul>
+                    </section>
+            )}
+
+            <!-- Markdown/body content from the member .md file -->
+            <div class="prose dark:prose-invert mt-8 max-w-none">
+                <slot/>
+            </div>
+        </div>
+    </article>
+</div>
+
+<Footer/>
+</body>
+</html>
