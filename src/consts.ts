@@ -53,8 +53,7 @@ export const steps: Step[] = [
         image: { src: analyse, alt: "Beispiel einer grafischen SPARQL-Abfrage" },
         caption: "Beispiel einer Abfrage zu allen Klerikern mit Ortsbezug zur Diözese Mainz – oben erfolgt der Aufbau über die grafische Oberfläche, unten die Ausgabe des entsprechenden SPARQL-Codes.",
         tools: [
-            { name: "Query by Graph", href: "/tools/quebyg" }, // ← your example
-            { name: "SPARQL Playground", href: "/tools/sparql-playground" },
+            { name: "Query by Graph", href: "/tools/quebyg" },
         ],
         angle: 90,
     },
@@ -63,7 +62,7 @@ export const steps: Step[] = [
         subtitle: "Linked Open Data mit FactGrid/Wikibase",
         description: `Für die Speicherung der Daten nutzt HisQu FactGrid, eine speziell auf die Bedürfnisse der Geschichtswissenschaft zugeschnittene Wikibase-Instanz. Sie ermöglicht kollaboratives und nachvollziehbares Arbeiten mit Klarnamen. Alle aktiven Mitwirkenden erhalten personalisierte Konten, die eindeutig über ORCID-IDs verknüpft sind. Auf diese Weise entstehen zitierfähige (Mikro-)Publikationen, die die Sichtbarkeit und Akzeptanz von HisQu in der wissenschaftlichen Community stärken.`,
         image: { src: archiv, alt: "FactGrid-Oberfläche" },
-        tools: [{ name: "FactGrid Console", href: "/tools/factgrid-console" }],
+        tools: [{ name: "FactGrid Console", href: "/blog/factgrid" }],
         angle: 155,
     },
     {
@@ -73,10 +72,6 @@ export const steps: Step[] = [
 
 Ein visueller Editor bildet die einzelnen Schritte samt Abhängigkeiten ab und ermöglicht ihre Verwaltung mit zeitgemäßen Werkzeugen wie Git-Integration und automatisch generiertem Wiki.`,
         image: { src: nachvollziehbarkeit, alt: "Visueller Workflow-Editor" },
-        tools: [
-            { name: "Lab Notebook", href: "/tools/lab-notebook" },
-            { name: "Git Integrator", href: "/tools/git-integrator" },
-        ],
         angle: 205,
     },
 ];
