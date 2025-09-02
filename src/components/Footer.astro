@@ -1,9 +1,11 @@
 ---
-import {GitHubLink, SiteDescription, SiteTitle} from "../consts";
+import Image from "astro/components/Image.astro";
+import {GitHubLink, SiteDescription, SiteTitle, dfg} from "../consts";
 ---
 
 <footer>
 	<p>© 2025, {SiteTitle} &mdash; {SiteDescription}</p>
+	<Image src={dfg.srcDark} class="w-48 rounded-md" alt="Funded by the Deutsche Forschungsgemeinschaft"/>
 	<div class="footer_links">
 		<a href={GitHubLink}>GitHub</a>
 		<a href="/legal">Imprint/GDPR</a>
