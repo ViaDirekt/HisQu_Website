@@ -11,7 +11,7 @@ export const ContactPageEmailLink = "mailto:clemens.beck@uni-jena.de?subject=Int
 import {
     dhiLogo,
     factGridLogo,
-    dfgLogoSvg,
+    dfgLogo,
     gsLogo,
     mephisto03, erstellung, ontologie, verarbeitung, analyse, archiv, nachvollziehbarkeit,
 } from "./assets";
@@ -203,8 +203,8 @@ export interface Props {
 export const dfg: Partner = {
     key: "dfg",
     name: "Deutsche Forschungsgemeinschaft",
-    srcLight: dfgLogoSvg,
-    srcDark: dfgLogoSvg, // gleiches Asset in Dark erlaubt
+    srcLight: dfgLogo,
+    srcDark: dfgLogo, // gleiches Asset in Dark erlaubt
     width: 158,
     height: 48,
     href: "https://www.dfg.de/"

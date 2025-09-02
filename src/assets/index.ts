@@ -9,7 +9,7 @@ import team from "./team.jpg";
 // partner logos
 import dhiLogo from "./partners/DHI_Logo_web.jpg";
 import factGridLogo from "./partners/FactGrid-Logo.png";
-import dfgLogoSvg from "./partners/dfg_logo_schriftzug_blau_foerderung_en.jpg";
+import dfgLogo from "./partners/dfg_foerderung.jpg";
 import gsLogo from "./partners/gs.png";
 import mephisto03 from "./partners/mephisto-03.png";
 import mephisto04 from "./partners/mephisto-04.png";
@@ -32,7 +32,7 @@ export {
     // partners
     dhiLogo,
     factGridLogo,
-    dfgLogoSvg,
+    dfgLogo,
     gsLogo,
     mephisto03,
     mephisto04,
