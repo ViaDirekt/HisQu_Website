@@ -1,6 +1,8 @@
 ---
 title: "Annotation historischer Regesten"
-description: "Ein Projekt zur strukturierten Erfassung von Entitäten in historischen Quellen."
+description: "Die manuelle Annotation von Regesten dient als Grundlage für das Validieren und Entwickeln automatischer
+ Extraktionsverfahren. Sie ist ein wichtiger Baustein unseres Forschungsprojekts, der die Qualität der nachfolgenden 
+ Pipelineschritte maßgeblich beeinflusst."
 date: "2025-08-01T09:00:00"
 authors: [ "dm" ]
 location: "Jena"
