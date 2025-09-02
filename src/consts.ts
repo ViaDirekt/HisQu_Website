@@ -22,9 +22,6 @@ export const steps: Step[] = [
         subtitle: "Digitalisierung historischer Ressourcen",
         description: `HisQu zielt darauf ab, die Digitalisierung gedruckter historischer Quellen mit anspruchsvollen Layouts – etwa Frakturschriften oder komplexen Spaltenstrukturen – deutlich zu verbessern. Dafür erweitern wir klassische OCR-Tools wie Tesseract durch den Einsatz von LLMs: Diese übernehmen die Vorverarbeitung der Quellen mithilfe von Bounding Boxes und ermöglichen zugleich eine nachträgliche Korrektur der Ergebnisse.`,
         image: { src: erstellung, alt: "Visualisierung der Digitalisierung historischer Quellen" },
-        tools: [
-            { name: "RAG Online", href: "/tools/scan-prep" },
-        ],
         angle: -90,
     },
     {
@@ -33,8 +30,8 @@ export const steps: Step[] = [
         description: `Die konsequente Digitalisierung geschichtswissenschaftlicher Forschungsprozesse erfordert domänenspezifische Vokabulare. Nur so lassen sich Quellen und Forschungsaussagen semantisch erfassen und interoperabel machen. HisQu setzt hierfür auf Wissensgraphen, die sowohl die Ontologie als auch die damit formulierten inhaltlichen Aussagen gleichberechtigt abbilden. Dieses Modell schafft Flexibilität für die digitale Modellierung und die Weiterentwicklung fachlicher Expertise. Grundlage dafür ist die Arbeit mit Protégé.`,
         image: { src: ontologie, alt: "Darstellung einer Ontologie-Modellierung" },
         tools: [
-            { name: "Protégé Online", href: "/tools/protege-profile" },
-            { name: "RG Guidelines", href: "/tools/rg-guidelines", image: { src: ontologie, alt: "RG" } },
+            { name: "Protégé Online", href: "https://protege.stanford.edu/" },
+            { name: "RG Guidelines", href: "/blog/annotation" },
         ],
         angle: -25,
     },

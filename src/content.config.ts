@@ -33,6 +33,7 @@ const blog = defineCollection({
 				src: image(),
 				alt: z.string(),
 			}),
+			authors: z.array(z.string()).optional(),
 			// Transform string to Date object
 			date: z.date({ coerce: true }),
 		}),
