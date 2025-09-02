@@ -11,7 +11,9 @@ image:
 
 # Annotation historischer Regesten
 
-![Eine handschrift aus dem Repertorium Germanicum](../../assets/tools/rg.png)
+![Eine Handschrift aus dem Repertorium Germanicum](../../assets/blog/rg-blog.png)
+
+---
 
 Die Annotation von Regesten – verdichteten Inhaltszusammenfassungen historischer Urkunden – steht im Mittelpunkt unseres
 Forschungsprojekts. Ziel ist es, Begriffe, Namen und Konzepte in diesen Texten systematisch zu erfassen und sie dadurch
