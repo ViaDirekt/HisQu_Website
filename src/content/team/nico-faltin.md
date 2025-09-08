@@ -2,7 +2,7 @@
 numerical_position: 4
 name: Nico Faltin
 academic_title:
-  suffix: M.A.
+  suffix: M.Ed.
 description: Wissenschaftlicher Mitarbeiter
 group: fsu-jena
 position: Wissenschaftlicher Mitarbeiter
