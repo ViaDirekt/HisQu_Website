@@ -2,7 +2,7 @@
 title: "HisQu Kick-Off-Meeting @ THULB"
 description: "Kick-Off-Meeting in der Thulb in Jena zum Projektauftakt"
 start: "2025-03-20T10:00:00"
-end: "2025-31-21T12:30:00"
+end: "2025-03-20T10:00:00"
 location: "Jena"
 image:
   src: "../../assets/KickOff_03_2025.jpg"
