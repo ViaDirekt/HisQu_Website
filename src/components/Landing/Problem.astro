@@ -1,8 +1,161 @@
 ---
+import { Icon } from 'astro-icon/components';
 ---
-<section class="fullscreen-section bg-gray-800 text-white">
-  <div class="content-container text-center">
-    <h2 class="text-5xl font-bold">Das Problem</h2>
-    <p class="mt-4 text-lg max-w-2xl">Hier beschreiben wir das Problem, das wir lösen möchten. Es ist eine große Herausforderung.</p>
+<section class="fullscreen-section" id="problem-section">
+  <div class="content-container h-full flex items-center flex-col justify-center px-6">
+    <div id="hero-headline" class="text-5xl md:text-7xl text-white mb-6 leading-tight text-center">
+        Das Problem der
+        <br />
+        <span class="bg-gradient-to-r from-[#FF0000] via-[#FF0000] to-[#FFA500] bg-clip-text text-transparent ">
+          Digital Humanities
+        </span>
+    </div>
+    <div>
+      <span class="text-gray-200 font-medium max-w-2xl mx-auto text-center mb-12 block leading-relaxed">
+        In den digitalen Geisteswissenschaften dominieren bislang digitale Editionen und punktuelle "Insel-Lösungen" – Tools und Skripte, die nur für ein spezifisches Forschungsproblem entwickelt wurden.
+      </span>
+    </div>
+    <!-- Problem Section Grid-->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+
+
+      <!-- First Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-red-400/20 p-2 rounded-lg">
+            <Icon name="lucide:database" size={24} class="text-red-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Fragmentierte Datenlandschaft</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Historische Daten sind über verschiedene Systeme verstreut und schwer zugänglich</span>
+        </div>
+      </div>
+
+
+      <!-- Second Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-red-400/20 p-2 rounded-lg">
+            <Icon name="lucide:trending-down" size={24} class="text-red-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Ineffiziente Workflows</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Manuelle Prozesse verlangsamen die Forschung und führen zu Datenverlusten</span>
+        </div>
+      </div>
+
+
+      <!-- Third Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-red-400/20 p-2 rounded-lg">
+            <Icon name="lucide:repeat" size={24} class="text-red-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Fehlende Reproduzierbarkeit</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Forschungsergebnisse sind schwer nachvollziehbar und nicht FAIR-konform, was auch die Wiederverwendbarkeit der Daten einschränkt</span>
+        </div>
+      </div>
+
+
+      <!-- Fourth Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-red-400/20 p-2 rounded-lg">
+            <Icon name="lucide:chart-no-axes-combined" size={24} class="text-red-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Begrenzte Skalierbarkeit</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Aktuelle Tools können nicht mit der wachsenden Datenmenge mithalten und sind nicht für die Zukunft gerüstet</span>
+        </div>
+      </div>
+    </div>
+
+   <button id="solution-button" class="hero-badge inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500/10 to-purple-600/10 border-2 border-blue-500/30 rounded-full px-8 py-3 mt-12 transition-all duration-300 cursor-pointer select-none group relative overflow-hidden">
+        <Icon name="lucide:sparkles" size={18} class="text-yellow-400" />
+        <span class="text-blue-300 text-base font-medium">HisQu bietet die Lösung</span>
+    </button>
   </div>
 </section>
+
+
+
+<style>
+  #hero-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900; /* Extra bold */
+  }
+  #problem-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800; /* Bold */
+  }
+
+  .hero-badge {
+    position: relative;
+    transform-origin: center;
+  }
+
+  .hero-badge::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #f59e0b, #06b6d4);
+    background-size: 300% 300%;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .hero-badge:hover::before {
+    opacity: 0.3;
+  }
+
+  .hero-badge:hover {
+    transform: scale(1.02);
+    border-color: transparent;
+  }
+.hero-badge:hover span {
+    font-weight: 500;
+    color: white;
+  }
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>
