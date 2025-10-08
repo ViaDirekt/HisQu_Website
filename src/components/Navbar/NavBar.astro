@@ -1,0 +1,519 @@
+---
+import Image from "astro/components/Image.astro";
+import Logo from "../../assets/logo.png";
+import Team from "../../assets/team.jpg";
+---
+
+<header>
+  <nav>
+    <div class="menu-bar">
+      <div class="menu-logo">
+        <a href="/"> <Image src={Logo} alt="Logo" /> </a>
+      </div>
+      <div class="menu-toggle-btn">
+        <div class="menu-toggle-label"> <p>Menu</p> </div>
+        <div class="menu-hamburger-icon">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-overlay">
+      <div class="menu-overlay-content">
+        <div class="menu-media-wrapper">
+          <Image src={Team} alt="Media" />
+          <div class="menu-media-hover-circle">
+            <p class="menu-media-hover-text">Watch Demo</p>
+          </div>
+        </div>
+        <div class="menu-content-wrapper">
+          <div class="menu-content-main">
+            <div class="menu-col">
+              <div class="menu-link"> <a href="#">Github</a></div>
+              <div class="menu-link"> <a href="#">Events</a></div>
+              <div class="menu-link"> <a href="#">Publikationen</a></div>
+              <div class="menu-link"> <a href="#">Team</a></div>
+              <div class="menu-link"> <a href="#">Kontakt</a></div>
+            </div>
+            <div class="menu-col">
+              <div class="menu-tag"> <a href="#">Content</a></div>
+              <div class="menu-tag"> <a href="#">Content</a></div>
+              <div class="menu-tag"> <a href="#">Content</a></div>
+            </div>
+          </div>
+          <div class="menu-footer">
+            <div class="menu-col">
+              <p>© 2025, HisQu — e-Research Project</p>
+            </div>
+            <div class="menu-col">
+              <p>Hier kann</p>
+              <p>noch etwas stehen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  :root {
+    --fg: #ffffff;
+    --menu-bg: #0f0f0f;
+    --menu-fg-secondary: #5f5f5f;
+    --hamburger-icon-border: rgba(255, 255, 255, 0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    /* Font */
+  }
+
+  .menu-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu-media-wrapper img {
+    width: 100vw;
+    height: 100svh;
+    object-fit: cover;
+    opacity: 0.25; /* Initial opacity for the image */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+
+  }
+  /* On hover, increase opacity */
+  .menu-media-wrapper.active img {
+    opacity: 1;
+  }
+
+  h1 {
+    font-size: 7.5rem;
+    font-weight: 500;
+    letter-spacing: -0.2rem;
+    line-height: 1;
+  }
+
+  p {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .container {
+    position: relative;
+    transform: translateY(0svh);
+
+    background-color: var(--bg); /* Ensure --bg is defined if used */
+    color: var(--fg);
+  }
+
+  header {
+   position: fixed; /* Positioniert die Navbar relativ zum Viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto; /* Höhe wird durch den Inhalt bestimmt (z.B. .menu-bar) */
+  z-index: 100; /* Stellt sicher, dass die Navbar über allem anderen liegt */
+  pointer-events: none; /* WICHTIG: Erlaubt Klicks "durch" den Header auf den Inhalt dahinter */
+  }
+
+  header h1 {
+    width: 75%;
+  }
+
+  .menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: all;
+    color: var(--menu-fg-secondary);
+    z-index: 2;
+    pointer-events:all;
+  }
+
+  .menu-logo {
+    height: 2rem;
+    width: 3rem;
+  }
+  .menu-toggle-btn {
+    display: flex;
+    pointer-events: all;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+  }
+  .menu-toggle-label {
+    overflow: hidden;
+  }
+
+  .menu-toggle-label p {
+    position: relative;
+    transform: translateY(0%);
+    will-change: transform;
+  }
+  .menu-hamburger-icon {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--hamburger-icon-border);
+    border-radius: 100%;
+  }
+
+  .menu-hamburger-icon span {
+    position: absolute;
+    width: 15px;
+    height: 1.25px;
+    background-color: var(--fg);
+    transition: all 0.75s cubic-bezier(0.87, 0, 0.13, 1);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .menu-hamburger-icon span:nth-child(1) {
+    transform: translateY(-3px);
+  }
+  .menu-hamburger-icon span:nth-child(2) {
+    transform: translateY(3px);
+  }
+
+  .menu-hamburger-icon.active span:nth-child(1) {
+    transform: translateY(0px) rotate(45deg) scaleX(1.05);
+  }
+  .menu-hamburger-icon.active span:nth-child(2) {
+    transform: translateY(0px) rotate(-45deg) scaleX(1.05);
+  }
+
+  .menu-overlay,
+  .menu-overlay-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    color: var(--fg);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .menu-overlay {
+    background-color: var(--menu-bg); /* Corrected variable usage */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    will-change: clip-path;
+  }
+
+  .menu-overlay-content {
+    display: flex;
+    transform: translateY(-50%);
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .menu-media-wrapper {
+    flex: 2;
+    opacity: 0; /* Managed by JS/GSAP, initial opacity for wrapper */
+    will-change: opacity;
+    position: relative; /* Needed for absolute positioning of the hover circle */
+    overflow: hidden; /* Ensures circle doesn't go outside wrapper */
+    cursor: none; /* Hide default cursor */
+
+    clip-path: inset(0 0 0 0 round 0 10% 30% 0);
+
+  }
+
+  /* NEW: Styles for the hover circle */
+  .menu-media-hover-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--fg);
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.1); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; 
+    opacity: 0; 
+    transform: translate(-50%, -50%); 
+    will-change: transform, opacity;
+    z-index: 10; 
+  } 
+  .menu-media-hover-circle p {
+    color: var(--fg);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .menu-content-wrapper {
+    flex: 3;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-content-main {
+    width: 75%;
+    padding: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+
+  .menu-footer {
+    width: 75%;
+    padding: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  .menu-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .menu-col:nth-child(1) {
+    flex: 3;
+  }
+  .menu-col:nth-child(2) {
+    flex: 2;
+  }
+
+  .menu-link a {
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .menu-tag a,
+  .menu-footer p {
+    color: var(--menu-fg-secondary);
+  }
+
+  .line {
+    position: relative;
+    will-change: transform;
+  }
+  @media (max-width: 1000px) {
+    h1 {
+      font-size: 3rem;
+      letter-spacing: -0.5rem;
+    }
+    header h1 {
+      width: 100%;
+    }
+    .menu-media-wrapper {
+      display: none;
+    }
+    .menu-content-main,
+    .menu-footer {
+      width: 100%;
+    }
+    .menu-content-main {
+      top: 50%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5rem;
+    }
+    .menu-link a {
+      font-size: 3rem;
+    }
+    .menu-tag a {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { CustomEase } from "gsap/CustomEase";
+  import { SplitText } from "gsap/SplitText";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("hop", ".87, 0, .13, 1");
+
+    // --- SETUP SPLITTEXT ---
+    const textContainers = document.querySelectorAll(".menu-col");
+    const splitTextByContainer: SplitText[][] = [];
+
+    textContainers.forEach((container) => {
+      const textElements = container.querySelectorAll("a, p");
+      let containerSplits: SplitText[] = [];
+
+      textElements.forEach((element) => {
+        const split = new SplitText(element, {
+          type: "lines",
+          linesClass: "line",
+        });
+        containerSplits.push(split);
+        gsap.set(split.lines, { y: "-110%" });
+      });
+
+      splitTextByContainer.push(containerSplits);
+    });
+    
+    // Flatten all lines into a single array for one animation call
+    const allLines = splitTextByContainer.flat().flatMap(split => split.lines);
+
+    /* Animation Constants */
+    const container = document.querySelector(".container");
+    const menuToggleBtn = document.querySelector(".menu-toggle-btn");
+    const menuOverlay = document.querySelector(".menu-overlay");
+    const menuOverlayContainer = document.querySelector(
+      ".menu-overlay-content"
+    );
+    const menuMediaWrapper = document.querySelector(".menu-media-wrapper") as HTMLElement;
+    const menuToggleLabel = document.querySelector(".menu-toggle-label p");
+    const hamburgerIcon = document.querySelector(".menu-hamburger-icon");
+    const menuMediaHoverCircle = document.querySelector(".menu-media-hover-circle"); // NEW: Get the hover circle element
+
+
+    let isMenuOpen = false;
+    let isAnimating = false;
+
+    menuToggleBtn?.addEventListener("click", () => {
+      if (isAnimating) return;
+
+      if (!isMenuOpen) {
+        // --- OPEN MENU ---
+        isAnimating = true;
+        hamburgerIcon?.classList.add("active");
+        
+        gsap.set(menuOverlayContainer, { pointerEvents: "all" });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            isAnimating = false;
+            isMenuOpen = true;
+          },
+        });
+
+        tl.to(menuToggleLabel, { y: "-110%", duration: 1, ease: "hop" })
+          .to(container, { y: "100svh", duration: 1, ease: "hop" }, "<")
+          .to(
+            menuOverlay,
+            {
+              clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+              duration: 1,
+              ease: "hop",
+            },
+            "<"
+          )
+          .to(
+            menuOverlayContainer,
+            { yPercent: 0, duration: 1, ease: "hop" },
+            "<"
+          )
+          .to(
+            menuMediaWrapper,
+            { opacity: 1, duration: 0.75, ease: "power2.out", delay: 0.5 },
+            "<"
+          )
+          // Animate all lines at once
+          .to(
+            allLines,
+            { y: "0%", duration: 1.2, ease: "hop", stagger: 0.05 },
+            "-=0.75"
+          );
+
+      } else {
+        // --- CLOSE MENU ---
+        isAnimating = true;
+        hamburgerIcon?.classList.remove("active");
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            // Reset all lines at once
+            gsap.set(allLines, { y: "-110%" });
+            gsap.set(menuMediaWrapper, { opacity: 0 });
+            gsap.set(menuOverlayContainer, { pointerEvents: "none" });
+
+            isMenuOpen = false;
+            isAnimating = false;
+          },
+        });
+
+        tl.to(container, { y: "0svh", duration: 1, ease: "hop" })
+          .to(
+            menuOverlay,
+            {
+              clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+              duration: 1,
+              ease: "hop",
+            },
+            "<"
+          )
+          .to(
+            menuOverlayContainer,
+            { yPercent: -50, duration: 1, ease: "hop" },
+            "<"
+          )
+          .to(menuToggleLabel, { y: "0%", duration: 1, ease: "hop" }, "<");
+      }
+    });
+
+    // NEW: Hover effects for menu-media-wrapper
+    menuMediaWrapper?.addEventListener("mouseenter", () => {
+      menuMediaWrapper?.classList.add("active"); // For image opacity
+      gsap.to(menuMediaHoverCircle, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" });
+    });
+
+    menuMediaWrapper?.addEventListener("mouseleave", () => {
+      menuMediaWrapper?.classList.remove("active"); // For image opacity
+      gsap.to(menuMediaHoverCircle, { opacity: 0, scale: 0.8, duration: 0.3, ease: "power2.out" });
+    });
+
+    menuMediaWrapper?.addEventListener("mousemove", (e: MouseEvent) => {
+      if (menuMediaHoverCircle) {
+        // Get the bounding rectangle of the wrapper to calculate local coordinates
+        const rect = menuMediaWrapper.getBoundingClientRect();
+        // Calculate the position relative to the wrapper
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        gsap.to(menuMediaHoverCircle, {
+          x: x,
+          y: y,
+          duration: 0.1, // Smooth movement
+          ease: "power1.out",
+          overwrite: "auto" // Prevents animation stacking
+        });
+      }
+    });
+  });
+</script>
+
+
+<!-- TODO:
+1. Wenn die Navbar scrollt, sollte alles verschwinden, bis auf den Hamburger 
+2. Wir müssen uns noch was einfallen lassen, was das allegemeine Theme angeht. Es ist noch zu eckig. Aber vorerst sollte man mit dem Hero etc. weiter machen
+-->

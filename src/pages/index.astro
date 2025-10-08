@@ -1,19 +1,63 @@
 ---
-import {getCollection, render} from 'astro:content';
-import Layout from '../layouts/IndexLayout.astro';
-import Hero from "../components/Hero.astro";
-import Partners from "../components/Partners.astro";
-import CurrentPosts from "../components/CurrentPosts.astro";
-import Toolchain from "../components/Toolchain.astro";
-import AboutPartners from "../components/AboutPartners.astro";
-import Team from "../components/Team.astro";
+import Hero from "../components/Landing/Hero.astro"
+import Problem from "../components/Landing/Problem.astro"
+import Layout from "../layouts/IndexLayout.astro"
 ---
 
-<Layout>
-    <main>
-        <Hero/>
-        <Toolchain/>
-        <AboutPartners/>
-        <CurrentPosts/>
-    </main>
+<Layout title="Präsentations-Website">
+  <main id="presentation-container">
+    <Hero />
+    <Problem />
+  </main>
 </Layout>
+
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Wähle alle Sektionen aus, die beobachtet werden sollen
+    const sections = document.querySelectorAll(".fullscreen-section");
+
+    // Definiere die Optionen für den Observer
+    const options: IntersectionObserverInit = {
+      root: null, // Beobachtet den Viewport
+      threshold: 0.5, // Löst aus, wenn 50% der Sektion sichtbar sind
+    };
+
+    // Erstelle den Observer
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        // Wenn die Sektion den Viewport betritt...
+        if (entry.isIntersecting) {
+          const content = entry.target.querySelector(".content-container");
+          
+          if (content) {
+            gsap.to(content, {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+              delay: 0.2,
+            });
+          }
+        } else {
+          // Optional: Setze die Animation zurück, wenn die Sektion den Viewport verlässt
+          const content = entry.target.querySelector(".content-container");
+          if (content) {
+            gsap.to(content, {
+              opacity: 0,
+              y: 30, // zurück zum Startzustand
+              duration: 0.5,
+              ease: "power3.in",
+            });
+          }
+        }
+      });
+    }, options);
+
+    // Starte die Beobachtung für jede Sektion
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  });
+</script>

@@ -1,3 +1,39 @@
-@use 'colors.scss';
-@use 'type.scss';
-@use 'layout.scss';
+@use "colors.scss";
+@use "type.scss";
+@use "layout.scss";
+
+body {
+  margin: 0;
+}
+
+/* STYLING FÜR LANDING */
+#presentation-container {
+  height: 100vh;
+  overflow-y: scroll; /* Nur dieser Container ist scrollbar */
+  scroll-snap-type: y mandatory; /* Zwingt das Snapping auf der Y-Achse */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#presentation-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari und Opera */
+}
+
+/* Jede einzelne Sektion */
+.fullscreen-section {
+  height: 100vh; /* Jede Sektion füllt den gesamten Viewport */
+  width: 100%;
+  scroll-snap-align: start; /* Richtet den Anfang der Sektion am Anfang des Containers aus */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Für zukünftige Positionierungen */
+  overflow: hidden; /* Verhindert, dass Inhalte überlaufen */
+}
+
+/* Der zu animierende Inhalt */
+.content-container {
+  /* Startzustand für die Animation: Unsichtbar und leicht nach unten verschoben */
+  opacity: 0;
+  transform: translateY(30px);
+}
