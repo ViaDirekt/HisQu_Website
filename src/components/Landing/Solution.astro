@@ -1,0 +1,188 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+<section class="fullscreen-section" id="solution-section">
+  <div class="content-container h-full flex items-center flex-col justify-start px-6 max-w-6xl pt-28">
+    <div id="hero-headline" class="text-5xl md:text-3xl text-white mb-6 leading-tight text-center bg-gray-800/30 w-full px-16 py-6 md:py-10 rounded-2xl border-2 border-gray-700">
+      <div id="sparkles-badge" class="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+        <Icon name="lucide:sparkles" size={36} class="text-white" />
+      </div>
+        Ein einheitlicher Hermeneutischer Zirkel
+        <br />
+        <span class="text-gray-300 bg-clip-text text-base font-normal">
+          6 integrierte Schritte führen von der Quellendigitalisierung bis zur wissenschaftlichen Nachnutzung – ohne Medienbrüche, vollständig dokumentiert und reproduzierbar.
+        </span>
+    </div>
+    <!-- Problem Section Grid-->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 w-full">
+
+
+      <!-- First Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 w-full rounded-xl p-6 flex flex-col">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-green-400/20 p-2 rounded-lg">
+            <Icon name="lucide:target" size={24} class="text-green-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Geschlossener Datenzyklus</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Nahtlose Integration aller Forschungsschritte von der Digitalisierung bis zur Nachnutzung</span>
+        </div>
+      </div>
+
+
+      <!-- Second Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 w-full rounded-xl p-6 flex flex-col">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-green-400/20 p-2 rounded-lg">
+            <Icon name="lucide:brain" size={24} class="text-green-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">KI-unterstützte Prozesse</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Large Language Models optimieren Annotation, Extraktion und Qualitätskontrolle</span>
+        </div>
+      </div>
+
+
+      <!-- Third Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 w-full rounded-xl p-6 flex flex-col">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-green-400/20 p-2 rounded-lg">
+            <Icon name="lucide:circle-check-big" size={24} class="text-green-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">FAIR-Prinzipien</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Findable, Accessible, Interoperable und Reusable - für maximale Nachnutzbarkeit</span>
+        </div>
+      </div>
+
+
+      <!-- Fourth Container -->
+      <div class="border-2 border-gray-700 bg-gray-800/20 w-full rounded-xl p-6 flex flex-col">
+        <div class="flex flex-row items-center space-x-4 mb-6">
+          <!-- Icon Container -->
+          <div class="bg-green-400/20 p-2 rounded-lg">
+            <Icon name="lucide:message-square" size={24} class="text-green-400" />
+          </div>
+          <!-- Text Container -->
+           <div id="problem-headline" class="text-lg">
+            <span class="text-white font-bold text-xl">Interaktive Workflows</span>
+           </div>
+        </div>
+        <!-- Description -->
+        <div class="-mt-2">
+          <span class="text-gray-300 text-sm">Benutzerfreundliche Tools für komplexe geisteswissenschaftliche Forschungsprozesse</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  
+  // Animate the sparkles badge
+  gsap.set("#sparkles-badge", {
+    transformOrigin: "center center"
+  });
+  
+  // Combined rotation and scale animation
+  gsap.to("#sparkles-badge", {
+    rotation: 360,
+    duration: 8,
+    ease: "none",
+    repeat: -1
+  });
+  
+  gsap.to("#sparkles-badge", {
+    scale: 1.1,
+    duration: 2,
+    ease: "power2.inOut",
+    yoyo: true,
+    repeat: -1
+  });
+</script>
+
+
+
+<style>
+  #hero-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900; /* Extra bold */
+  }
+  #problem-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800; /* Bold */
+  }
+
+  .hero-badge {
+
+  .hero-badge {
+    position: relative;
+    transform-origin: center;
+  }
+
+  .hero-badge::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #f59e0b, #06b6d4);
+    background-size: 300% 300%;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .hero-badge:hover::before {
+    opacity: 0.3;
+  }
+
+  .hero-badge:hover {
+    transform: scale(1.02);
+    border-color: transparent;
+  }
+
+  .hero-badge:hover span {
+    font-weight: 500;
+    color: white;
+  }
+  @keyframes sparkle-float {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes sparkle-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

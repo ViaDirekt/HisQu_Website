@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 ---
 <section class="fullscreen-section" id="problem-section">
-  <div class="content-container h-full flex items-center flex-col justify-center px-6">
+  <div class="content-container h-full flex items-center flex-col justify-center px-6 max-w-6xl w-full">
     <div id="hero-headline" class="text-5xl md:text-7xl text-white mb-6 leading-tight text-center">
         Das Problem der
         <br />
@@ -16,7 +16,7 @@ import { Icon } from 'astro-icon/components';
       </span>
     </div>
     <!-- Problem Section Grid-->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 w-full">
 
 
       <!-- First Container -->
@@ -95,10 +95,6 @@ import { Icon } from 'astro-icon/components';
       </div>
     </div>
 
-   <button id="solution-button" class="hero-badge inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500/10 to-purple-600/10 border-2 border-blue-500/30 rounded-full px-8 py-3 mt-12 transition-all duration-300 cursor-pointer select-none group relative overflow-hidden">
-        <Icon name="lucide:sparkles" size={18} class="text-yellow-400" />
-        <span class="text-blue-300 text-base font-medium">HisQu bietet die Lösung</span>
-    </button>
   </div>
 </section>
 

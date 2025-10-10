@@ -1,0 +1,13 @@
+---
+// src/components/Steps/HermenSections.astro
+import StepSection from "./StepSection.astro";
+import { steps } from "./steps";
+
+const idPrefix = "step-";
+---
+
+<!-- Jede Section bekommt .fullscreen-section und .content-container (für deinen GSAP-Observer) -->
+{steps.map((s, i) => (
+  // i+1 = 1-basiert, damit 2,4,6... als "gerade" gelten
+  <StepSection step={s} index={i + 1} />
+))}

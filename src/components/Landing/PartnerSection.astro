@@ -1,0 +1,187 @@
+---
+// src/components/PartnersSection.astro
+
+// Importiere den Astro <Image> component für optimierte Bilder
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+// Importiere die Partnerdaten (angenommen, die Bilder sind im src/assets Ordner)
+import { mephisto03 } from '../../assets';
+
+// Definiere den TypeScript-Typ für einen Partner
+import { partners } from '../../consts';
+import type { Partner } from '../../consts';
+---
+
+<section class="fullscreen-section flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
+  <div class="max-w-7xl content-container mx-auto text-center flex flex-col justify-center h-full">
+    
+    <div class="mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        Meet the <span class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">Partners</span>
+      </h2>
+      <p class="text-lg text-slate-300 max-w-4xl mx-auto">
+        HisQu wird von führenden Einrichtungen der Digital Humanities und Geschichtswissenschaft getragen. Der Verbund verbindet methodische Exzellenz mit langjähriger Forschungsdaten-Kompetenz.
+      </p>
+    </div>
+
+    <div id="partners-container" class=" w-full flex items-center justify-center gap-4 transition-all duration-500 ease-in-out">
+      {partners.map((partner) => (
+        <a 
+          href={partner.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="partner-item relative h-[300px] flex-1 bg-slate-800/50 border border-slate-700/50 rounded-2xl transition-all duration-700 ease-in-out overflow-hidden cursor-pointer"
+          data-key={partner.key}
+        >
+          <div class="logo-container absolute inset-0 flex-col items-center justify-center p-4">
+            <Image 
+                src={partner.srcDark !== undefined ? partner.srcDark : (partner.srcLight !== undefined ? partner.srcLight : mephisto03)} 
+                alt={`${partner.name} Logo`}
+                class="w-auto object-contain transition-all duration-500 ease-in-out invert h-full"
+              />
+
+          </div>
+          
+
+          <div class="info-card absolute inset-0 pb-6 px-6 pt-2 flex flex-col justify-between bg-slate-800/80 backdrop-blur-sm opacity-0 transition-opacity duration-500">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-bold text-left leading-tight">{partner.name}</h3>
+                <Icon name="lucide:arrow-up-right" size={20} class="text-slate-400 flex-shrink-0 ml-2 absolute top-3 right-3" />
+              </div>
+              <p class="text-sm text-left text-slate-300 leading-relaxed">{partner.summary}</p>
+            </div>
+            <div class="pt-4 border-t border-slate-700/50 text-left">
+              <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Team</p>
+              <p class="text-sm text-slate-300">
+                {partner.leads!.map(lead => `${lead.title} ${lead.name}`).join(' · ')}
+              </p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-slate-700/50 w-full max-w-4xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+             <div>
+               <div class="text-2xl font-bold text-purple-400">4</div>
+               <div class="text-slate-300 text-xs">Führende Institutionen</div>
+             </div>
+             <div>
+               <div class="text-2xl font-bold text-blue-400">15+</div>
+               <div class="text-slate-300 text-xs">Wissenschaftler:innen</div>
+             </div>
+             <div>
+               <div class="text-2xl font-bold text-green-400">3</div>
+               <div class="text-slate-300 text-xs">Länder</div>
+             </div>
+             <div>
+               <div class="text-2xl font-bold text-pink-400">6</div>
+               <div class="text-slate-300 text-xs">Forschungsbereiche</div>
+             </div>
+        </div>
+    </div>
+    <div class="mt-16 flex flex-col gap-2 items-center">
+      <span class="text-2xl font-bold">Kontakt & Mitmachen</span>
+      <p class="text-sm text-gray-400">Fragen, Kooperationen oder Fallstudien? Besuchen Sie unsere Kontaktseite oder eröffnen Sie ein Issue</p>
+      <div id="hero-cta" class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4">
+        <button class="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold text-base overflow-hidden transition-transform hover:scale-105 active:scale-95">
+          <span class="relative z-10 flex items-center space-x-2">
+            <span>Kontakt aufnehmen</span>
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></div>
+        </button>
+
+        <button class="group flex items-center space-x-3 px-6 py-3 border border-slate-600 text-white rounded-full font-semibold text-base hover:border-purple-500 transition-all hover:scale-105 active:scale-95">
+          <span>Github Issues</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const container = document.querySelector('#partners-container') as HTMLElement;
+  const items = gsap.utils.toArray('.partner-item') as HTMLElement[];
+  
+  let expansionTimer: number | null = null;
+  let activeItem: HTMLElement | null = null;
+
+  // Konfiguration
+  const EXPANSION_DELAY = 800; // 0.8 Sekunden Verzögerung
+  const ANIMATION_DURATION = 0.6; // Dauer der Animation
+
+  // Funktion zum Erweitern eines Elements
+  function expandItem(item: HTMLElement) {
+    if (activeItem === item) return; // Nicht erneut ausführen, wenn bereits aktiv
+
+    // Wenn ein anderes Element aktiv ist, klappe es zuerst ein
+    if (activeItem) {
+      collapseItem(activeItem);
+    }
+    
+    activeItem = item;
+
+    const otherItems = items.filter(i => i !== item);
+    const infoCard = item.querySelector('.info-card');
+    const logo = item.querySelector('.logo-container');
+
+    gsap.timeline({ defaults: { duration: ANIMATION_DURATION, ease: 'power3.inOut' } })
+      .to(item, { flexGrow: 8 }, 0) // Das aktive Element wachsen lassen
+      .to(otherItems, { flexGrow: 1 }, 0) // Die anderen schrumpfen
+      .to(logo, { opacity: 0, scale: 0.8 }, 0) // Logo ausblenden
+      .to(infoCard, { opacity: 1, delay: 0.2 }, 0); // Info-Karte einblenden
+  }
+
+  // Funktion zum Einklappen eines Elements
+  function collapseItem(item: HTMLElement) {
+    if (activeItem !== item) return;
+
+    activeItem = null;
+    const infoCard = item.querySelector('.info-card');
+    const logo = item.querySelector('.logo-container');
+
+    gsap.timeline({ defaults: { duration: ANIMATION_DURATION, ease: 'power3.inOut' } })
+      .to(items, { flexGrow: 1 }, 0) // Alle Elemente auf Normalgröße
+      .to(infoCard, { opacity: 0, delay: 0, duration: 0 }, 0) // Info-Karte ausblenden
+      .to(logo, { opacity: 1, scale: 1, delay: 0.2 }, 0); // Logo einblenden
+  }
+
+  // Event Listener für jedes Partner-Element
+  items.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      // 1. Sofortiges "Anschwellen" als visuelles Feedback
+      gsap.to(item, { scale: 1.03, duration: 0.3 });
+
+      // 2. Timer für die verzögerte Expansion starten
+      if (expansionTimer) clearTimeout(expansionTimer);
+      expansionTimer = window.setTimeout(() => {
+        expandItem(item);
+      }, EXPANSION_DELAY);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      // 1. "Anschwellen" zurücksetzen
+      gsap.to(item, { scale: 1.0, duration: 0.3 });
+      
+      // 2. Timer stoppen, um die Expansion zu verhindern
+      if (expansionTimer) {
+        clearTimeout(expansionTimer);
+        expansionTimer = null;
+      }
+    });
+  });
+
+  // Wenn die Maus den gesamten Container verlässt, alles zurücksetzen
+  container.addEventListener('mouseleave', () => {
+    if (activeItem) {
+      collapseItem(activeItem);
+    }
+  });
+
+</script>
