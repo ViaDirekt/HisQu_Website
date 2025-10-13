@@ -5,7 +5,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://hisqu.de",
+  site: "https://XXios.github.io",
 
   integrations: [icon()],
 
