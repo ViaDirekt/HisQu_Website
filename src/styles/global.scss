@@ -31,9 +31,30 @@ body {
   overflow: hidden; /* Verhindert, dass Inhalte überlaufen */
 }
 
+/* Wende overflow: hidden auf ALLE Sektionen an, AUSSER der Blog-Sektion */
+.fullscreen-section:not(#blog-section) {
+  overflow: hidden;
+}
+
+/* Spezielle Ausrichtung für die Blog-Sektion */
+.fullscreen-section.blog-section {
+  align-items: flex-start; /* Startet oben statt in der Mitte */
+  overflow-y: auto; /* Erlaubt scrollen innerhalb der Sektion */
+  padding-top: 4rem; /* Genug Abstand für die Navbar (ca. 6rem) + etwas extra */
+}
+
+/* Blog-Container - kein extra padding mehr nötig, da die Section es hat */
+.blog-container {
+  width: 100%;
+}
 /* Der zu animierende Inhalt */
 .content-container {
   /* Startzustand für die Animation: Unsichtbar und leicht nach unten verschoben */
   opacity: 0;
   transform: translateY(30px);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
