@@ -2,8 +2,8 @@
 import { Icon } from 'astro-icon/components';
 ---
 <section class="fullscreen-section" id="problem-section">
-  <div class="content-container h-full flex items-center flex-col justify-center px-6 max-w-6xl w-full">
-    <div id="hero-headline" class="text-5xl md:text-7xl text-white mb-6 leading-tight text-center">
+  <div class="content-container h-full flex items-center flex-col justify-end md:justify-center px-6 max-w-6xl w-full pb-10 md:pb-0">
+    <div id="hero-headline" class="text-4xl md:text-7xl text-white mb-6 leading-tight text-center">
         Das Problem der
         <br />
         <span class="bg-gradient-to-r from-[#FF0000] via-[#FF0000] to-[#FFA500] bg-clip-text text-transparent ">
@@ -11,86 +11,86 @@ import { Icon } from 'astro-icon/components';
         </span>
     </div>
     <div>
-      <span class="text-gray-200 font-medium max-w-2xl mx-auto text-center mb-12 block leading-relaxed">
+      <span class="text-gray-200 text-sm md:text-base font-medium max-w-2xl mx-auto text-center mb-5 md:mb-12 block leading-relaxed">
         In den digitalen Geisteswissenschaften dominieren bislang digitale Editionen und punktuelle "Insel-Lösungen" – Tools und Skripte, die nur für ein spezifisches Forschungsproblem entwickelt wurden.
       </span>
     </div>
     <!-- Problem Section Grid-->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-2 w-full">
 
 
       <!-- First Container -->
-      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
-        <div class="flex flex-row items-center space-x-4 mb-6">
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-4 md:p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-3 md:space-x-4 mb-3 md:mb-6">
           <!-- Icon Container -->
-          <div class="bg-red-400/20 p-2 rounded-lg">
-            <Icon name="lucide:database" size={24} class="text-red-400" />
+          <div class="bg-red-400/20 p-1 md:p-2 rounded-lg">
+            <Icon name="lucide:database" size={24} class="text-red-400 scale-[0.7] md:scale-100" />
           </div>
           <!-- Text Container -->
            <div id="problem-headline" class="text-lg">
-            <span class="text-white font-bold text-xl">Fragmentierte Datenlandschaft</span>
+            <span class="text-white font-bold text-lg md:text-xl">Fragmentierte Datenlandschaft</span>
            </div>
         </div>
         <!-- Description -->
         <div class="-mt-2">
-          <span class="text-gray-300 text-sm">Historische Daten sind über verschiedene Systeme verstreut und schwer zugänglich</span>
+          <span class="text-gray-300 text-xs md:text-sm small-height">Historische Daten sind über verschiedene Systeme verstreut und schwer zugänglich</span>
         </div>
       </div>
 
 
       <!-- Second Container -->
-      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
-        <div class="flex flex-row items-center space-x-4 mb-6">
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-4 md:p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-3 md:space-x-4 mb-3 md:mb-6">
           <!-- Icon Container -->
-          <div class="bg-red-400/20 p-2 rounded-lg">
-            <Icon name="lucide:trending-down" size={24} class="text-red-400" />
+          <div class="bg-red-400/20 p-1 md:p-2 rounded-lg">
+            <Icon name="lucide:trending-down" size={24} class="text-red-400 scale-[0.7] md:scale-100" />
           </div>
           <!-- Text Container -->
            <div id="problem-headline" class="text-lg">
-            <span class="text-white font-bold text-xl">Ineffiziente Workflows</span>
+            <span class="text-white font-bold text-lg md:text-xl">Ineffiziente Workflows</span>
            </div>
         </div>
         <!-- Description -->
         <div class="-mt-2">
-          <span class="text-gray-300 text-sm">Manuelle Prozesse verlangsamen die Forschung und führen zu Datenverlusten</span>
+          <span class="text-gray-300 text-xs md:text-sm small-height">Manuelle Prozesse verlangsamen die Forschung und führen zu Datenverlusten</span>
         </div>
       </div>
 
 
       <!-- Third Container -->
-      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
-        <div class="flex flex-row items-center space-x-4 mb-6">
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-4 md:p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-3 md:space-x-4 mb-3 md:mb-6">
           <!-- Icon Container -->
-          <div class="bg-red-400/20 p-2 rounded-lg">
-            <Icon name="lucide:repeat" size={24} class="text-red-400" />
+          <div class="bg-red-400/20 p-1 md:p-2 rounded-lg">
+            <Icon name="lucide:repeat" size={24} class="text-red-400 scale-[0.7] md:scale-100" />
           </div>
           <!-- Text Container -->
            <div id="problem-headline" class="text-lg">
-            <span class="text-white font-bold text-xl">Fehlende Reproduzierbarkeit</span>
+            <span class="text-white font-bold text-lg md:text-xl">Fehlende Reproduzierbarkeit</span>
            </div>
         </div>
         <!-- Description -->
         <div class="-mt-2">
-          <span class="text-gray-300 text-sm">Forschungsergebnisse sind schwer nachvollziehbar und nicht FAIR-konform, was auch die Wiederverwendbarkeit der Daten einschränkt</span>
+          <span class="text-gray-300 text-xs md:text-sm small-height">Forschungsergebnisse sind schwer nachvollziehbar und nicht FAIR-konform, was auch die Wiederverwendbarkeit der Daten einschränkt</span>
         </div>
       </div>
 
 
       <!-- Fourth Container -->
-      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-6 flex flex-col max-w-lg">
-        <div class="flex flex-row items-center space-x-4 mb-6">
+      <div class="border-2 border-gray-700 bg-gray-800/20 rounded-xl p-4 md:p-6 flex flex-col max-w-lg">
+        <div class="flex flex-row items-center space-x-3 md:space-x-4 mb-3 md:mb-6">
           <!-- Icon Container -->
-          <div class="bg-red-400/20 p-2 rounded-lg">
-            <Icon name="lucide:chart-no-axes-combined" size={24} class="text-red-400" />
+          <div class="bg-red-400/20 p-1 md:p-2rounded-lg">
+            <Icon name="lucide:chart-no-axes-combined" size={24} class="text-red-400 scale-[0.7] md:scale-100" />
           </div>
           <!-- Text Container -->
            <div id="problem-headline" class="text-lg">
-            <span class="text-white font-bold text-xl">Begrenzte Skalierbarkeit</span>
+            <span class="text-white font-bold text-lg md:text-xl">Begrenzte Skalierbarkeit</span>
            </div>
         </div>
         <!-- Description -->
         <div class="-mt-2">
-          <span class="text-gray-300 text-sm">Aktuelle Tools können nicht mit der wachsenden Datenmenge mithalten und sind nicht für die Zukunft gerüstet</span>
+          <span class="text-gray-300 text-xs md:text-sm small-height">Aktuelle Tools können nicht mit der wachsenden Datenmenge mithalten und sind nicht für die Zukunft gerüstet</span>
         </div>
       </div>
     </div>
@@ -153,5 +153,9 @@ import { Icon } from 'astro-icon/components';
     100% {
       background-position: 0% 50%;
     }
+  }
+  .small-height {
+    display: inline-block;
+    line-height: 1.4rem; /* Match the height for vertical centering */
   }
 </style>

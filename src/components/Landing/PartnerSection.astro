@@ -31,14 +31,14 @@ import type { Partner } from '../../consts';
           href={partner.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="partner-item relative h-[300px] flex-1 bg-slate-800/50 border border-slate-700/50 rounded-2xl transition-all duration-700 ease-in-out overflow-hidden cursor-pointer"
+          class="partner-item relative h-[300px] flex-1 bg-slate-900/40 border border-slate-700/50 rounded-2xl transition-all duration-700 ease-in-out overflow-hidden cursor-pointer"
           data-key={partner.key}
         >
           <div class="logo-container absolute inset-0 flex-col items-center justify-center p-4">
             <Image 
                 src={partner.srcDark !== undefined ? partner.srcDark : (partner.srcLight !== undefined ? partner.srcLight : mephisto03)} 
                 alt={`${partner.name} Logo`}
-                class="w-auto object-contain transition-all duration-500 ease-in-out invert h-full"
+                class="w-auto object-contain transition-all duration-500 ease-in-out h-full"
               />
 
           </div>

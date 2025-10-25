@@ -27,11 +27,11 @@ const isEven = basis % 2 === 0;
       <div class={`space-y-8 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
         <!-- Step header -->
         <div>
-          <div class={`inline-flex items-center space-x-3 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full px-6 py-3 mb-6`}>
-            <div class={`text-transparent bg-gradient-to-r ${step.color} bg-clip-text`}>
-              <Icon name={step.icon} size={28} />
+          <div class={`inline-flex justify-center items-center space-x-3 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full px-6 py-3 mb-6`}>
+            <div class={`text-white bg-gradient-to-r ${step.color} bg-clip-text`}>
+              <Icon name={step.icon} size={22} />
             </div>
-            <span class={`text-transparent bg-gradient-to-r ${step.color} bg-clip-text font-medium`}>
+            <span class={`text-white w-full text-center bg-gradient-to-r ${step.color} bg-clip-text font-medium`}>
               {step.subtitle}
             </span>
           </div>
