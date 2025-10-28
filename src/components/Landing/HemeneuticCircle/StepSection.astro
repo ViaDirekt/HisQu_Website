@@ -21,16 +21,16 @@ const isEven = basis % 2 === 0;
 ---
 
 <section class="fullscreen-section" id={`step-${step.id}`}>
-  <div class="content-container h-full flex items-center justify-center px-6">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+  <div class="content-container h-full flex items-end md:items-center pb-16 md:pb-0 justify-center px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-8 lg:gap-12 items-center">
       
       <div class={`space-y-8 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
         <div>
-          <div class={`inline-flex justify-center items-center space-x-3 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full px-2 md:px-6 py-1 md:py-3 mb-6`}>
-            <div class={`text-white bg-gradient-to-r ${step.color} bg-clip-text`}>
+          <div class={`hidden md:inline-flex justify-center items-center space-x-3 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full px-2 md:px-6 py-1 md:py-3 mb-6`}>
+            <div class={`text-gray-700 bg-gradient-to-r ${step.color} bg-clip-text`}>
               <Icon name={step.icon} size={22} />
             </div>
-            <span class={`text-white w-full text-center bg-gradient-to-r ${step.color} bg-clip-text font-medium`}>
+            <span class={`text-gray-700 w-full text-center bg-gradient-to-r ${step.color} bg-clip-text font-medium`}>
               {step.subtitle}
             </span>
           </div>
@@ -39,7 +39,7 @@ const isEven = basis % 2 === 0;
             {step.title}
           </h2>
 
-          <p class="text-lg lg:text-xl text-slate-300 leading-relaxed">
+          <p class="text-base lg:text-xl text-slate-300 leading-relaxed">
             {step.description}
           </p>
         </div>
@@ -60,7 +60,7 @@ const isEven = basis % 2 === 0;
           <h3 class="text-xl font-bold text-white mb-4">Verwendete Tools</h3>
           <div class="flex flex-wrap gap-3">
             {step.tools.map((tool) => (
-              <span class={`px-4 py-2 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full text-sm font-medium text-white`}>
+              <span class={`px-3 md:px-4 py-1 md:py-2 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full text-sm font-medium text-gray-700`}>
                 {tool}
               </span>
             ))}
@@ -85,6 +85,16 @@ const isEven = basis % 2 === 0;
           </div>
         </div>
       </div>
+      <div class="block md:hidden space-y-4 md:-mt-10">
+          <h3 class="text-xl font-bold text-white mb-4">Verwendete Tools</h3>
+          <div class="flex flex-wrap gap-3">
+            {step.tools.map((tool) => (
+              <span class={`px-3 md:px-4 py-1 md:py-2 bg-gradient-to-r ${step.color} bg-opacity-10 border border-white/10 rounded-full text-sm font-medium text-gray-700`}>
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
     </div>
   </div>
 </section>

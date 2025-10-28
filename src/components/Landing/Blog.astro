@@ -45,13 +45,14 @@ const blogPosts = [
   }
 ];
 
-const categories = [
-  { name: "Alle", count: blogPosts.length, active: true },
-  { name: "FactGrid", count: 1, active: false },
-  { name: "Methodology", count: 1, active: false },
-  { name: "AI & ML", count: 1, active: false },
-  { name: "Tutorial", count: 1, active: false }
-];
+// Dynamisch Kategorien erstellen, um DRY zu bleiben
+const allCategories = ["Alle", ...new Set(blogPosts.map(post => post.category))];
+const categories = allCategories.map((cat, index) => ({
+  name: cat,
+  count: cat === "Alle" ? blogPosts.length : blogPosts.filter(p => p.category === cat).length,
+  active: index === 0 // "Alle" ist standardmäßig aktiv
+}));
+
 
 // Datumsformatierungs-Hilfsfunktion
 const formatDate = (dateString: string) => {
@@ -62,7 +63,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-// Posts aufteilen
+// Posts aufteilen (Beachten Sie, dass dies für das *initiale* Layout ist)
 const [mainPost, post2, post3, post4] = blogPosts;
 const otherPosts = [post2, post3, post4];
 ---
@@ -103,7 +104,7 @@ const otherPosts = [post2, post3, post4];
         >
           {categories.map((category) => (
             <button
-              class:list={[
+              data-filter={category.name} class:list={[
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
                 category.active
                   ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
@@ -118,7 +119,7 @@ const otherPosts = [post2, post3, post4];
 
       <div id="blog-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
 
-        <article class="lg:col-span-2 lg:row-span-1 grid-item group">
+        <article class="lg:col-span-2 lg:row-span-1 grid-item group" data-category={mainPost.category}>
           <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all duration-300 h-full flex flex-col">
             <div class="relative h-64 lg:h-80">
               <Image
@@ -165,7 +166,7 @@ const otherPosts = [post2, post3, post4];
         </article>
   
         {otherPosts.map((post) => (
-          <article class="lg:col-span-1 grid-item group">
+          <article class="lg:col-span-1 grid-item group" data-category={post.category}>
             <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 h-full flex flex-col">
               <div class="relative h-48">
                 <Image
@@ -212,7 +213,7 @@ const otherPosts = [post2, post3, post4];
   </div>
 </section>
 
-<!-- <script>
+<script>
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -227,23 +228,26 @@ const otherPosts = [post2, post3, post4];
     gsap.fromTo("#blog-filter", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.6 });
 
     // Grid-Items-Animation (mit ScrollTrigger)
-    gsap.fromTo(gsap.utils.toArray('.grid-item'), 
+    const gridItems = gsap.utils.toArray<HTMLElement>('.grid-item');
+    // Die initialen Grid-Item-Animationen wurden oben beibehalten.
+    // Wir stellen jedoch sicher, dass die Artikel initial sichtbar sind, 
+    // bevor die Filterlogik greift, um den Fehler zu beheben.
+    gsap.fromTo(gridItems, 
       { opacity: 0, y: 20 }, 
       { 
         opacity: 1, 
         y: 0, 
         duration: 0.8, 
-        delay: 0.8, // Startverzögerung für das Grid
-        stagger: 0.1, // Verzögerung zwischen den einzelnen Items
+        delay: 0.8, 
+        stagger: 0.1, 
         scrollTrigger: { 
           trigger: "#blog-grid", 
-          start: 'top 80%' // Startet, wenn 80% des Grids im Viewport sind
+          start: 'top 80%' 
         }
       }
     );
 
     // Einfache GSAP-Hover-Animation für die "Weiterlesen"-Links
-    // (Alternative zu den Tailwind group-hover-Klassen, falls komplexer gewünscht)
     const links = gsap.utils.toArray<HTMLElement>('.group\\/link');
     links.forEach(link => {
       const arrow = link.querySelector('svg');
@@ -256,5 +260,68 @@ const otherPosts = [post2, post3, post4];
       link.addEventListener('mouseleave', () => tl.reverse());
     });
 
+    // --- GEFIXTE FILTER-LOGIK ---
+
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('#blog-filter button');
+    const blogArticles = document.querySelectorAll<HTMLElement>('#blog-grid .grid-item');
+    
+    // Definiere die Klassen für einfacheren Wechsel
+    const activeClasses = ['bg-gradient-to-r', 'from-blue-500', 'to-purple-600', 'text-white'];
+    const inactiveClasses = ['bg-slate-800/50', 'text-slate-300', 'hover:bg-slate-700/50', 'hover:text-white'];
+
+    // 1. Funktion zum Anwenden des Filters
+    const applyFilter = (selectedFilter: string) => {
+      let activeBtn: HTMLButtonElement | null = null;
+      
+      // Update Button Styles
+      filterButtons.forEach(btn => {
+        const filterName = btn.dataset.filter;
+        
+        btn.classList.remove(...activeClasses, ...inactiveClasses);
+
+        if (filterName === selectedFilter) {
+          btn.classList.add(...activeClasses);
+          activeBtn = btn;
+        } else {
+          btn.classList.add(...inactiveClasses);
+        }
+      });
+
+      const visibleArticles: HTMLElement[] = [];
+      
+      // Filter Articles
+      blogArticles.forEach(article => {
+        const articleCategory = article.dataset.category;
+        const isVisible = selectedFilter === 'Alle' || selectedFilter === articleCategory;
+
+        if (isVisible) {
+          visibleArticles.push(article);
+          article.style.display = ''; 
+        } else {
+          article.style.display = 'none';
+        }
+      });
+      
+      // Animation (optional)
+      gsap.fromTo(visibleArticles, 
+        { opacity: 0, y: 10 }, 
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 }
+      );
+    };
+
+    // 2. Event Listener für Buttons hinzufügen
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedFilter = button.dataset.filter;
+        if (selectedFilter) {
+            applyFilter(selectedFilter);
+        }
+      });
+    });
+
+    // 3. ✨ FIX: Standard-Filter "Alle" sofort anwenden beim Laden der Seite
+    // Dadurch werden alle Blogartikel beim initialen Seitenaufruf angezeigt.
+    applyFilter('Alle'); 
+
   });
-</script> -->
+</script>

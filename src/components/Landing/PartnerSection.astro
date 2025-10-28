@@ -11,21 +11,23 @@ import { mephisto03 } from '../../assets';
 // Definiere den TypeScript-Typ für einen Partner
 import { partners } from '../../consts';
 import type { Partner } from '../../consts';
+import { dfgLogo } from '../../assets';
 ---
 
 <section class="fullscreen-section flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
   <div class="max-w-7xl content-container mx-auto text-center flex flex-col justify-center h-full">
     
-    <div class="mb-12">
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+    <div class="mb-0 md:mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold text-white md:mb-4">
         Meet the <span class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">Partners</span>
       </h2>
-      <p class="text-lg text-slate-300 max-w-4xl mx-auto">
+      <p class="text-lg text-slate-300 max-w-4xl mx-auto hidden md:block">
         HisQu wird von führenden Einrichtungen der Digital Humanities und Geschichtswissenschaft getragen. Der Verbund verbindet methodische Exzellenz mit langjähriger Forschungsdaten-Kompetenz.
       </p>
     </div>
 
-    <div id="partners-container" class=" w-full flex items-center justify-center gap-4 transition-all duration-500 ease-in-out">
+    <!-- DESKTOP PARTNER DISPLAY -->
+    <div id="partners-container" class="w-full hidden md:flex items-center justify-center gap-4 transition-all duration-500 ease-in-out">
       {partners.map((partner) => (
         <a 
           href={partner.href}
@@ -63,7 +65,40 @@ import type { Partner } from '../../consts';
       ))}
     </div>
 
-    <div class="mt-6 pt-6 border-t border-slate-700/50 w-full max-w-4xl mx-auto">
+    <!-- MOBILE PARTNER DISPLAY LIST VIEW -->
+    <div class="flex flex-col md:hidden">
+      {partners.map((partner) => (
+        <a 
+          href={partner.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mb-6 last:mb-0 p-3 bg-slate-900/40 border border-slate-700/50 rounded-2xl transition-all duration-500 ease-in-out flex items-center space-x-4"
+          data-key={partner.key}
+        >
+          <div class="w-20 h-20 flex-shrink-0">
+            <Image 
+                src={partner.srcDark !== undefined ? partner.srcDark : (partner.srcLight !== undefined ? partner.srcLight : mephisto03)} 
+                alt={`${partner.name} Logo`}
+                class="w-full h-full object-contain"
+              />       
+            </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-sm text-left leading-tight">{partner.name}</span>
+              <Icon name="lucide:arrow-up-right" size={20} class="text-slate-400 flex-shrink-0 ml-2" />
+            </div>  
+            <div class="pt-2 border-t border-slate-700/50 text-left">
+              <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Team</p>
+              <p class="text-[10px] text-slate-300">
+                {partner.leads!.map(lead => `${lead.title} ${lead.name}`).join(' · ')}
+              </p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-slate-700/50 w-full max-w-4xl mx-auto hidden md:block">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
              <div>
                <div class="text-2xl font-bold text-purple-400">4</div>
@@ -83,23 +118,13 @@ import type { Partner } from '../../consts';
              </div>
         </div>
     </div>
-    <div class="mt-16 flex flex-col gap-2 items-center">
-      <span class="text-2xl font-bold">Kontakt & Mitmachen</span>
-      <p class="text-sm text-gray-400">Fragen, Kooperationen oder Fallstudien? Besuchen Sie unsere Kontaktseite oder eröffnen Sie ein Issue</p>
-      <div id="hero-cta" class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4">
-        <button class="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold text-base overflow-hidden transition-transform hover:scale-105 active:scale-95">
-          <span class="relative z-10 flex items-center space-x-2">
-            <span>Kontakt aufnehmen</span>
-          </span>
-          <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></div>
-        </button>
-
-        <button class="group flex items-center space-x-3 px-6 py-3 border border-slate-600 text-white rounded-full font-semibold text-base hover:border-purple-500 transition-all hover:scale-105 active:scale-95">
-          <span>Github Issues</span>
-        </button>
-      </div>
+    <div class="w-full flex justify-center h-fit mt-5 md:mt-16">
+      <Image 
+          src={dfgLogo} 
+          alt="DFG Logo"
+          class="mx-auto object-contain w-2/3 rounded-md md:rounded-xl max-w-sm"
+        />
     </div>
-
   </div>
 </section>
 
