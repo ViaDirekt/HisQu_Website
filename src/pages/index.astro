@@ -6,6 +6,7 @@ import Layout from "../layouts/IndexLayout.astro"
 import HermeneuticCircleSection from "../components/Landing/HemeneuticCircle/HermeneuticCircleSection.astro"
 import PartnerSection from "../components/Landing/PartnerSection.astro"
 import Blog from "../components/Landing/Blog.astro"
+import RepertoriumGermanicum from "../components/Landing/RepertoriumGermanicum.astro"
 ---
 
 <Layout title="Präsentations-Website">
@@ -13,6 +14,7 @@ import Blog from "../components/Landing/Blog.astro"
     <Hero />
     <Problem />
     <Solution />
+    <RepertoriumGermanicum />
     <HermeneuticCircleSection />
     <PartnerSection />
     <Blog />
@@ -24,7 +26,7 @@ import Blog from "../components/Landing/Blog.astro"
 
   document.addEventListener("DOMContentLoaded", () => {
     // Wähle alle Sektionen aus, die beobachtet werden sollen
-    const sections = document.querySelectorAll(".fullscreen-section");
+    const sections = document.querySelectorAll(".fullscreen-section:not(#repertorium-germanicum)");
 
     // Definiere die Optionen für den Observer
     const options: IntersectionObserverInit = {
@@ -43,9 +45,9 @@ import Blog from "../components/Landing/Blog.astro"
             gsap.to(content, {
               opacity: 1,
               y: 0,
-              duration: 1,
+              duration: 1.5,
               ease: "power3.out",
-              delay: 0.2,
+              delay: 0.3,
             });
           }
         } else {
@@ -55,7 +57,7 @@ import Blog from "../components/Landing/Blog.astro"
             gsap.to(content, {
               opacity: 0,
               y: 30, // zurück zum Startzustand
-              duration: 0.5,
+              duration: 0.7,
               ease: "power3.in",
             });
           }

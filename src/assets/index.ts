@@ -24,6 +24,8 @@ import erstellung from "./tools/erstellung.png";
 import nachvollziehbarkeit from "./tools/nachvollziehbarkeit.jpg";
 import ontologie from "./tools/ontologie.png";
 import verarbeitung from "./tools/verarbeitung.png";
+import rg2_improved from "./rg2-improved.png";
+import rg2_normal from "./rg2-normal.png";
 
 export {
   // root
@@ -51,4 +53,6 @@ export {
   nachvollziehbarkeit,
   ontologie,
   verarbeitung,
+  rg2_improved,
+  rg2_normal,
 };
