@@ -18,7 +18,7 @@ import Team from "../../assets/team.jpg";
         </div>
       </div>
     </div>
-    <div class="menu-overlay">
+    <div class="menu-overlay bg-gradient-to-br from-slate-900 to-blue-950">
       <div class="menu-overlay-content">
         <div class="menu-media-wrapper">
           <Image src={Team} alt="Media" />
@@ -29,25 +29,25 @@ import Team from "../../assets/team.jpg";
         <div class="menu-content-wrapper">
           <div class="menu-content-main">
             <div class="menu-col">
-              <div class="menu-link"> <a href="#">Github</a></div>
-              <div class="menu-link"> <a href="#">Events</a></div>
-              <div class="menu-link"> <a href="#">Publikationen</a></div>
-              <div class="menu-link"> <a href="#">Team</a></div>
-              <div class="menu-link"> <a href="#">Kontakt</a></div>
+              <div class="menu-link"> <a href="https://github.com/HisQu">Github</a></div>
+              <div class="menu-link"> <a href="https://www.hisqu.de/events/">Events</a></div>
+              <div class="menu-link"> <a href="https://www.hisqu.de/publications/">Publikationen</a></div>
+              <div class="menu-link"> <a href="https://www.hisqu.de/team/">Team</a></div>
+              <div class="menu-link"> <a href="https://www.hisqu.de/contact/">Kontakt</a></div>
             </div>
             <div class="menu-col">
-              <div class="menu-tag"> <a href="#">Content</a></div>
-              <div class="menu-tag"> <a href="#">Content</a></div>
-              <div class="menu-tag"> <a href="#">Content</a></div>
+              <div class="menu-tag"> <a href="#">Imprint/GDPR</a></div>
+              <div class="menu-tag"> <a href="#">#</a></div>
+              <div class="menu-tag"> <a href="#">#</a></div>
             </div>
           </div>
           <div class="menu-footer">
             <div class="menu-col">
               <p>© 2025, HisQu — e-Research Project</p>
             </div>
-            <div class="menu-col">
-              <p>Hier kann</p>
-              <p>noch etwas stehen</p>
+            <div class="menu-col highlighted-tag">
+              <p>HisQu</p>
+              <p>e-Research-Project</p>
             </div>
           </div>
         </div>
@@ -150,8 +150,7 @@ import Team from "../../assets/team.jpg";
   }
 
   .menu-logo {
-    height: 2rem;
-    width: 3rem;
+    width: 4.75rem;
   }
   .menu-toggle-btn {
     display: flex;
@@ -218,7 +217,7 @@ import Team from "../../assets/team.jpg";
   }
 
   .menu-overlay {
-    background-color: var(--menu-bg); /* Corrected variable usage */
+    background-color: var(--color-purple-900); /* Corrected variable usage */
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
     will-change: clip-path;
   }
@@ -315,13 +314,17 @@ import Team from "../../assets/team.jpg";
 
   .menu-tag a,
   .menu-footer p {
-    color: var(--menu-fg-secondary);
+    color: var(--color-gray-400);
   }
 
   .line {
     position: relative;
     will-change: transform;
   }
+    .highlighted-tag p {
+      color: var(--color-purple-500);
+      line-height: 1rem;
+    }
   @media (max-width: 1000px) {
     h1 {
       font-size: 3rem;
@@ -349,6 +352,7 @@ import Team from "../../assets/team.jpg";
     .menu-tag a {
       font-size: 1.25rem;
     }
+  
   }
 </style>
 
